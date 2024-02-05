@@ -1,0 +1,499 @@
+--SSH Stack edit by Abyss (non-syanpse) 
+
+loadstring(game:HttpGet("https://pastebin.com/raw/Ym7wu90b", true))()--whitelist script
+
+game.Workspace:WaitForChild(game:GetService("Players").LocalPlayer.Name)--fixes auto exec
+
+local ScreenGui = Instance.new("ScreenGui")
+local Main = Instance.new("Frame")
+local FastStack = Instance.new("TextButton")
+local Frame = Instance.new("Frame")
+local Target = Instance.new("TextBox")
+local Kill = Instance.new("TextButton")
+local loopKill = Instance.new("TextButton")
+local FFStack = Instance.new("TextButton")
+local SideButtons = Instance.new("Frame")
+local idk = Instance.new("TextButton")
+local AddTarget = Instance.new("TextButton")
+local RemoveTarget = Instance.new("TextButton")
+local AddAll = Instance.new("TextButton")
+local RemoveAll = Instance.new("TextButton")
+local Close = Instance.new("TextButton")
+
+local mainFrame = Main
+
+_G.stacking = false
+_G.cbinging = false
+_G.ffStacking = false
+_G.stackingAll = false
+local nameOfTarget = "R1zona"
+local setlocation = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+local attacked = false
+local fireball = "EnergySphere9"
+local PlayerName = game.Players.LocalPlayer.Name
+local player1 = game.Players.LocalPlayer
+if game:GetService("Players").LocalPlayer.PrivateStats.FistStrength.Value >= 1000000000000000 then
+    fireball = "EnergySphere9"
+else
+    fireball = "EnergySphere8"
+end
+
+local noStackList = { "CaughtInTheAbyss", "sir27dagamer", "", "", "", "", "" }
+local defaultStackTable = { "--Will always be in stack table" }
+local stackTable = defaultStackTable
+
+local isDragging = false
+local dragStartPos = nil
+local frameStartPos = mainFrame.Position
+
+local function onMouseDown(mousePos)
+    isDragging = true
+    dragStartPos = mousePos
+end
+
+local function onMouseUp()
+    isDragging = false
+end
+
+local function onMouseMove(mousePos)
+    if isDragging then
+        local delta = mousePos
+        mainFrame.Position = UDim2.new(
+        frameStartPos.X.Scale,
+        frameStartPos.X.Offset + delta.X,
+        frameStartPos.Y.Scale,
+        frameStartPos.Y.Offset + delta.Y
+        )
+    end
+end
+
+local function showStackTable()
+    local result = ""
+    for i, value in ipairs(stackTable) do
+      result = result .. value .. ", "
+    end
+    print(result:sub(1, -3))
+    game:GetService("StarterGui"):SetCore("ChatMakeSystemMessage", {
+    Text = (result:sub(1, -3));
+    Color = Color3.fromRGB(0, 0, 255);
+    Font = Enum.Font.SciFi;
+    TextSize = 20
+    })
+end
+
+local function removeFromTable(toRemove)--pass in nameOfTarget
+	for i, target in ipairs(stackTable) do
+        if target == toRemove then
+            table.remove(stackTable, i)
+            break
+        end
+    end
+end
+
+local function addToStackTable(toAdd)--pass in nameOfTarget
+    if not table.find(stackTable, toAdd) and not table.find(noStackList, toAdd) then
+        table.insert(stackTable, toAdd)
+    end
+end
+
+local function clearStackTable()
+    _G.stackingAll = false
+    --stackTable = defaultStackTable --clears the stack table
+    stackTable = { "R1zona", }
+end
+
+local function fillStackTable()--fills the stack table with everyone in the game
+    _G.stackingAll = true
+	for _, plr in pairs(game:GetService("Players"):GetChildren()) do
+        if not table.find(noStackList, plr.Name) then
+            if not table.find(stackTable, plr.Name) and plr.Name ~= game:GetService("Players").LocalPlayer.Name then
+                table.insert(stackTable, plr.Name)
+            end
+        end
+    end
+end
+
+Frame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        onMouseDown(input.Position)
+    end
+end)
+
+Frame.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        onMouseUp()
+    end
+end)
+
+game:GetService("UserInputService").InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement then
+       onMouseMove(input.Position)
+    end
+end)
+
+local function calcFBtoKillTarget(onWho)
+    local targbt = game.Players[onWho].PrivateStats.BodyToughness.Value --2.4
+    local playerfs = game.Players.LocalPlayer.PrivateStats.FistStrength.Value
+    local firebdmg = playerfs*2.4
+    local dmgDone = nil
+    if targbt >= (playerfs*10) then
+        dmgDone = "hell nah"
+    elseif playerfs > targbt then
+        dmgDone = firebdmg
+    else
+        dmgDone = (math.floor((firebdmg)*(playerfs/targbt) + 0.5))
+    end
+    if dmgDone ~= "hell nah" then
+        if (math.floor((targbt*10)/dmgDone)+1) == 7 then
+            return(6)
+        elseif (math.floor((targbt*10)/dmgDone)+1) > 7 then
+            return("nope")
+        else
+            return(math.floor((targbt*10)/dmgDone)+1)
+        end
+    else
+        return("nope")
+    end
+end
+
+ScreenGui.Parent = game.CoreGui
+
+Frame.Name = "Frame"
+Frame.Parent = Main
+Frame.BackgroundColor3 = Color3.fromRGB(17, 17, 17)
+Frame.BackgroundTransparency = 0.700
+Frame.Position = UDim2.new(-0.025, 0, -0.05, 0)
+Frame.Size = UDim2.new(0, 305, 0, 174)
+
+Main.Name = "Main"
+Main.Parent = ScreenGui
+Main.BackgroundColor3 = Color3.fromRGB(79, 79, 79)
+Main.Position = UDim2.new(0.045, 0, 0.8, 0)
+Main.Size = UDim2.new(0, 292, 0, 160)
+
+Target.Name = "Target"
+Target.Parent = Main
+Target.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Target.BorderSizePixel = 2
+Target.Size = UDim2.new(0, 260, 0, 32)
+Target.Font = Enum.Font.SourceSans
+Target.PlaceholderText = "Target Name"
+Target.Text = ""
+Target.TextColor3 = Color3.fromRGB(255, 255, 255)
+Target.TextSize = 22.000
+Target.FocusLost:Connect(function()
+    for i,v in pairs(game:GetService("Players"):GetChildren()) do
+        if v.Name:lower():find(Target.Text:lower()) then
+            if v.Name ~= tostring(game:GetService("Players").LocalPlayer.Name) then
+                nameOfTarget = v.Name
+                Target.Text = v.Name
+            end
+        end
+    end
+end)
+
+Kill.Name = "Kill"
+Kill.Parent = Main
+Kill.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Kill.BorderSizePixel = 2
+Kill.Position = UDim2.new(0, 0, 0.200000003, 0)
+Kill.Size = UDim2.new(0, 130, 0, 64)
+Kill.Font = Enum.Font.SourceSans
+Kill.Text = "Kill"
+Kill.TextColor3 = Color3.fromRGB(255, 255, 255) --kill text
+Kill.TextSize = 20.000
+Kill.MouseButton1Down:connect(function()
+        local xx = 6
+        local setlocation = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+        game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, 25000, 0)
+        workspace.FallenPartsDestroyHeight = 0/0
+        while xx > 0 do
+            game.ReplicatedStorage.RemoteEvent:FireServer{"Skill_SpherePunch", Vector3.new(0, 100000, 0)};
+            game.Workspace.Storage:WaitForChild(fireball)
+            task.wait()
+            for _, v in pairs (game.Workspace.Storage:GetDescendants()) do
+                if v.Name == fireball then
+                    v.BV.Velocity = Vector3.new()
+                    v.CFrame = CFrame.new(0, 0, 0)
+                end
+            end
+            if xx ~= 0 then
+                wait(.515)
+            end
+            xx=xx-1
+        end
+        for _, v in pairs (game.Workspace.Storage:GetDescendants()) do
+            if v.Name == fireball then
+                v.BV.Velocity = Vector3.new()
+                v.CFrame = CFrame.new(0, 0, 0)
+            end
+        end
+        game.Workspace[nameOfTarget].HumanoidRootPart.CFrame = CFrame.new(0, 0, 0)
+        wait(1)
+        game:GetService("ReplicatedStorage").RemoteEvent:FireServer{"Respawn"}
+    end)
+
+loopKill.Name = "loopKill"
+loopKill.Parent = Main
+loopKill.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+loopKill.BorderSizePixel = 2
+loopKill.Position = UDim2.new(0.44520548, 0, 0.200000003, 0)
+loopKill.Size = UDim2.new(0, 130, 0, 64)
+loopKill.Font = Enum.Font.SourceSans
+loopKill.Text = "CBring Start"
+loopKill.TextColor3 = Color3.fromRGB(255, 255, 255)
+loopKill.TextSize = 20.000
+loopKill.MouseButton1Down:connect(function()
+    if _G.cbinging == true then
+        _G.cbinging = false
+        loopKill.Text = "CBring Start"
+    else
+        if not _G.stacking and not _G.ffStacking then
+            if not table.find(stackTable, nameOfTarget) and not table.find(noStackList, nameOfTarget) then
+                addToStackTable(nameOfTarget)
+            end
+            _G.cbinging = true
+            loopKill.Text = "CBring Stop"
+        end
+    end
+    while _G.cbinging == true do
+        for _, target in ipairs(stackTable) do
+            local targ = game.Workspace:FindFirstChild(target)
+            if game.Workspace:FindFirstChild(target) then
+                if targ and targ:FindFirstChild("HumanoidRootPart") then
+                    local player = game.Players.LocalPlayer
+                    if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                        targ.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame + player.Character.HumanoidRootPart.CFrame.lookVector * 0.8
+                    end
+                end
+            end
+        end
+        task.wait()
+    end
+end)
+
+FFStack.Name = "FFStack"
+FFStack.Parent = Main
+FFStack.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+FFStack.BorderSizePixel = 2
+FFStack.Position = UDim2.new(0, 0, 0.600000024, 0)
+FFStack.Size = UDim2.new(0, 130, 0, 64)
+FFStack.Font = Enum.Font.SourceSans
+FFStack.Text = "(FF) Stack"
+FFStack.TextColor3 = Color3.fromRGB(255, 255, 255)
+FFStack.TextSize = 20.000
+FFStack.MouseButton1Down:connect(function()
+    if _G.ffStacking == true then
+        _G.ffStacking = false
+        FFStack.Text = "(FF) Start"
+    else
+        _G.ffStacking = true
+        FFStack.Text = "(FF) Stop"
+        game.Workspace:WaitForChild(PlayerName)
+        game:GetService("ReplicatedStorage").RemoteEvent:FireServer{"Respawn"}
+        wait(1.5)
+    end
+    while _G.ffStacking do
+		while true do
+		    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, 25000, 0)
+		    workspace.FallenPartsDestroyHeight = 0/0
+			if player1 and player1.Character and player1.Character:FindFirstChild("ForceField") then
+				game.ReplicatedStorage.RemoteEvent:FireServer{"Skill_SpherePunch", Vector3.new(0, 100000, 0)};
+				task.wait()
+				for _, v in pairs (game.Workspace.Storage:GetDescendants())do
+				    if v.Name == fireball then
+				        v.BV.Velocity = Vector3.new()
+				        v.CFrame = CFrame.new(0, 0, 0)
+				    end
+				end
+			else
+				game:GetService("ReplicatedStorage").RemoteEvent:FireServer{"Respawn"}
+				for _, target in ipairs(stackTable) do
+		            local targ = game.Workspace:FindFirstChild(target)
+		            local targ1 = game.Players:FindFirstChild(target)
+		            if game.Workspace:FindFirstChild(target) and not targ:FindFirstChild("SafeZoneShield") and not targ1.Character:FindFirstChild("ForceField") then
+		                if targ and targ:FindFirstChild("HumanoidRootPart") then
+		                    local player = game.Players.LocalPlayer
+		                    if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+		                        targ.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0)
+		                    end
+		                end
+		            end
+		        end
+		        wait(1.5)
+		        break
+			end
+		end
+	end
+end)
+
+FastStack.Name = "FastStack"
+FastStack.Parent = Main
+FastStack.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+FastStack.BorderSizePixel = 2
+FastStack.Position = UDim2.new(0.44520548, 0, 0.600000024, 0)
+FastStack.Size = UDim2.new(0, 130, 0, 64)
+FastStack.Font = Enum.Font.SourceSans
+FastStack.Text = "Fast Start"
+FastStack.TextColor3 = Color3.fromRGB(255, 255, 255)
+FastStack.TextSize = 20.000
+FastStack.MouseButton1Down:connect(function()
+	local setlocationf = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+    if _G.stacking == true then
+        _G.stacking = false
+        FastStack.Text = "Fast Start"
+    else
+        _G.stacking = true
+        FastStack.Text = "Fast Stop"
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2282.38306, 240.191605, 1068.30701, -0.61748749, 3.13436144e-09, 0.786580682, -3.94566477e-08, 1, -3.49593492e-08, -0.786580682, -5.26227986e-08, -0.61748749)
+    end
+    while _G.stacking do
+        game.ReplicatedStorage.RemoteEvent:FireServer{"Skill_SpherePunch", Vector3.new(0, 100000, 0)};
+        task.wait()
+        for _, v in pairs (game.Workspace.Storage:GetDescendants())do
+            if v.Name == fireball then
+                v.BV.Velocity = Vector3.new()
+                v.CFrame = CFrame.new(0, 0, 0)
+            end
+        end
+        local player1 = game.Players.LocalPlayer
+        if not player1.Character:FindFirstChild("ForceField") then
+            for _, target in ipairs(stackTable) do
+    			local targ = game.Workspace:FindFirstChild(target)
+    			local targ1 = game.Players:FindFirstChild(target)
+    			if game.Workspace:FindFirstChild(target) and not targ:FindFirstChild("SafeZoneShield") and not targ1.Character:FindFirstChild("ForceField") then
+        			if targ and targ:FindFirstChild("HumanoidRootPart") then
+            			local player = game.Players.LocalPlayer
+            			if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                			targ.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0)
+            			end
+        			end
+    			end
+			end
+	    end
+        task.wait()
+        if _G.stacking == false then
+            wait(.5)
+            for _, v in pairs (game.Workspace.Storage:GetDescendants())do
+                if v.Name == fireball then
+                    v.BV.Velocity = Vector3.new()
+                    v.CFrame = CFrame.new(0, 0, 0)
+                end
+            end
+            wait(.25)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(setlocationf)
+        end
+    end
+end)
+
+SideButtons.Name = "SideButtons"
+SideButtons.Parent = Main
+SideButtons.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+SideButtons.Position = UDim2.new(0.89041096, 0, 0, 0)
+SideButtons.Size = UDim2.new(0, 32, 0, 160)
+
+
+idk.Name = "idk"
+idk.Parent = SideButtons
+idk.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+idk.BorderSizePixel = 2
+idk.LayoutOrder = 1
+idk.Size = UDim2.new(0, 32, 0, 32)
+idk.Font = Enum.Font.SourceSans
+idk.Text = "ST"
+idk.TextColor3 = Color3.fromRGB(255, 255, 255)
+idk.TextSize = 20.000
+idk.MouseButton1Down:connect(function()
+    showStackTable()
+end)
+
+
+AddTarget.Name = "AddTarget"
+AddTarget.Parent = SideButtons
+AddTarget.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+AddTarget.BorderSizePixel = 2
+AddTarget.Position = UDim2.new(0, 0, 0.199999988, 0)
+AddTarget.Size = UDim2.new(0, 32, 0, 32)
+AddTarget.Font = Enum.Font.SourceSans
+AddTarget.Text = "+"
+AddTarget.TextColor3 = Color3.fromRGB(255, 255, 255)
+AddTarget.TextSize = 32.000
+AddTarget.MouseButton1Down:connect(function()
+    addToStackTable(nameOfTarget)
+    showStackTable()
+end)
+
+
+RemoveTarget.Name = "RemoveTarget"
+RemoveTarget.Parent = SideButtons
+RemoveTarget.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+RemoveTarget.BorderSizePixel = 2
+RemoveTarget.Position = UDim2.new(0, 0, 0.400000006, 0)
+RemoveTarget.Size = UDim2.new(0, 32, 0, 32)
+RemoveTarget.Font = Enum.Font.SourceSans
+RemoveTarget.Text = "-"
+RemoveTarget.TextColor3 = Color3.fromRGB(255, 255, 255)
+RemoveTarget.TextSize = 36.000
+RemoveTarget.MouseButton1Down:connect(function()
+    removeFromTable(nameOfTarget)
+    showStackTable()
+end)
+
+
+AddAll.Name = "AddAll"
+AddAll.Parent = SideButtons
+AddAll.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+AddAll.BorderColor3 = Color3.fromRGB(27, 42, 53)
+AddAll.BorderSizePixel = 2
+AddAll.Position = UDim2.new(0, 0, 0.600000024, 0)
+AddAll.Size = UDim2.new(0, 32, 0, 32)
+AddAll.Font = Enum.Font.SourceSans
+AddAll.Text = "+A"
+AddAll.TextColor3 = Color3.fromRGB(255, 255, 255)
+AddAll.TextSize = 26.000
+AddAll.MouseButton1Down:connect(function()
+    fillStackTable()
+    showStackTable()
+end)
+
+
+RemoveAll.Name = "RemoveAll"
+RemoveAll.Parent = SideButtons
+RemoveAll.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+RemoveAll.BorderSizePixel = 2
+RemoveAll.Position = UDim2.new(0, 0, 0.800000012, 0)
+RemoveAll.Size = UDim2.new(0, 32, 0, 32)
+RemoveAll.Font = Enum.Font.SourceSans
+RemoveAll.Text = "-A"
+RemoveAll.TextColor3 = Color3.fromRGB(255, 255, 255)
+RemoveAll.TextSize = 26.000
+RemoveAll.MouseButton1Down:connect(function()
+    clearStackTable()
+    _G.stackingAll = false
+    showStackTable()
+end)
+
+Close.Name = "Close"
+Close.Parent = Main
+Close.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Close.BorderColor3 = Color3.fromRGB(27, 42, 53)
+Close.BorderSizePixel = 2
+Close.Position = UDim2.new(0.814999998, 0, 0.200000003, 0)
+Close.Size = UDim2.new(0, 20, 0, 20)
+Close.Font = Enum.Font.SourceSans
+Close.Text = "X"
+Close.TextColor3 = Color3.fromRGB(255, 255, 255)
+Close.TextSize = 20.000
+Close.MouseButton1Down:connect(function()
+    _G.stacking = false
+    _G.ffstacking = false
+    _G.cbinging = false
+    _G.stackingAll = false
+    Main:Destroy()
+end)
+
+game:GetService("Players").PlayerAdded:Connect(function(whojoined)
+    if _G.stackingAll then
+        addToStackTable(whojoined.Name)
+    end
+end)
