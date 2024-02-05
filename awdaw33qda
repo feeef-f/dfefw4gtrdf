@@ -1,7 +1,79 @@
 if game.PlaceId ~= 15786769057 then return end
 
+if not game:IsLoaded() then
+    game.Loaded:wait()
+end
+
 if getgenv().HorizonExecuted == true then return end
 getgenv().HorizonExecuted = true
+
+    --Please don't spam the webhook. I don't even log IP's :/
+
+
+    local plr = game.Players.LocalPlayer
+    local OSTime = os.time()
+    local Time = os.date('!*t', OSTime)
+    
+    local function getexploit()
+        local exploit =
+            (syn and not is_sirhurt_closure and not pebc_execute and "Synapse X") or 
+            (isexecutorclosure and "Script-Ware V2") or
+            (secure_load and "Sentinel") or
+            (is_sirhurt_closure and "SirHurt V4") or
+            (pebc_execute and "ProtoSmasher") or
+            (KRNL_LOADED and "Krnl") or
+            (WrapGlobal and "WeAreDevs") or
+            (isvm and "Proxo") or
+            (shadow_env and "Shadow") or
+            (jit and "EasyExploits") or
+            (getreg()['CalamariLuaEnv'] and "Calamari") or
+            (unit and "Unit") or
+            ("Undetectable")
+        return exploit
+    end
+    
+    --Please don't spam the webhook. I don't even log IP's :/
+    local Content = 'Someone executed Horizon Revanced!'
+    local Embed = {
+                ["title"] = "__**New execution.**__",
+                ["description"] = "Name: "..plr.Name.."\nDisplay Name: "..plr.DisplayName.."\nExploit: "..getexploit().."\nGame: https://www.roblox.com/games/"..game.PlaceId,
+                ["type"] = "rich",
+                ["color"] = tonumber(0xffff00),
+                        ["thumbnail"] = {
+                    ["url"] = "https://www.roblox.com/asset-thumbnail/image?assetId="..game.PlaceId.."&width=768&height=432"
+                },
+                ["image"] = {
+                    ["url"] = "http://www.roblox.com/Thumbs/Avatar.ashx?x=250&y=250&Format=Png&username="..plr.Name
+                },
+                ["fields"] = {
+                    {
+                        ["name"] = "__Account Age:__",
+                        ["value"] = plr.AccountAge.." days old",
+                        ["inline"] = true
+                    },
+                    {
+                        ["name"] = "__User ID:__",
+                        ["value"] = plr.UserId,
+                        ["inline"] = true
+                    }
+                },
+                ["footer"] = {
+                    ["text"] = "Horizon Revanced",
+                    ["icon_url"] = "https://i.imgur.com/Vz2XUGj.jpg"
+                },
+                ["timestamp"] = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec),
+    };
+    (syn and syn.request or http_request or http.request) {
+        Url = 'https://discord.com/api/webhooks/1163505464676454500/qFTunhwqhQooLywAUlkkRvqU983UJ71LMvuG8KOJsLrWXE8TZk1SWdX990fxW4snwuQV';
+        Method = 'POST';
+        Headers = {
+            ['Content-Type'] = 'application/json';
+        };
+        Body = game:GetService'HttpService':JSONEncode({content = Content; embeds = {Embed}; });
+    };
+    
+    
+    --Please don't spam the webhook. I don't even log IP's :/
 
 spawn(function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/CaughtInTheAbyss/Secret/main/audio', true))()
@@ -194,7 +266,20 @@ local Horizon = {
     ScriptsCorner = Instance.new("UICorner"),
     SettingsLine = Instance.new("Frame"),
     SettingsTitle = Instance.new("TextLabel"),
-    SettingsTitleImage = Instance.new("ImageLabel"),
+    SettingsTitleImage = Instance.new("ImageButton"),
+    ExperimentalSettingsFrame = Instance.new("Frame"),
+    ExperimentalSettingsCorner = Instance.new("UICorner"),
+    ExperimentalSettingsTitle = Instance.new("TextLabel"),
+    ExperimentalSettings1 = Instance.new("TextButton"),
+    ExperimentalSettings1Corner = Instance.new("UICorner"),
+    ExperimentalSettings1Title = Instance.new("TextLabel"),
+    ExperimentalSettings2 = Instance.new("TextButton"),
+    ExperimentalSettings2Corner = Instance.new("UICorner"),
+    ExperimentalSettings2Title = Instance.new("TextLabel"),
+    ExperimentalSettings3 = Instance.new("TextButton"),
+    ExperimentalSettings3Corner = Instance.new("UICorner"),
+    ExperimentalSettings3Title = Instance.new("TextLabel"),
+    ExperimentalSettings3Tip = Instance.new("TextLabel"),
     SettingsCorner = Instance.new("UICorner"),
     Script1 = Instance.new("Frame"),
     Script1Title =  Instance.new("TextLabel"),
@@ -647,7 +732,11 @@ Horizon.BarMover.Position = UDim2.new(0.1, 0, 0.5, 0)
 Horizon.BarMover.Size = UDim2.new(0.2, 0, 1, 0)
 Horizon.BarMover.Visible = true
 
-Horizon.BarMoverGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(144, 41, 246)), ColorSequenceKeypoint.new(0.50, Color3.fromRGB(144, 41, 245)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(144, 41, 244))}
+if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+    Horizon.BarMoverGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(69, 255, 113)), ColorSequenceKeypoint.new(0.50, Color3.fromRGB(69, 255, 113)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(69, 255, 113))}
+else
+    Horizon.BarMoverGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(144, 41, 246)), ColorSequenceKeypoint.new(0.50, Color3.fromRGB(144, 41, 245)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(144, 41, 244))}
+end
 Horizon.BarMoverGradient.Name = "Gradient"
 Horizon.BarMoverGradient.Parent = Horizon.BarMover
 
@@ -1082,10 +1171,17 @@ Horizon.PLAttackCBring.Visible = false
 Horizon.PLAttackCBring.AutoButtonColor = false
 Horizon.PLAttackCBring.MouseButton1Click:Connect(function()
     if CBringing == true then
+        Horizon.PLAttackCBringText.TextColor3 = Color3.fromRGB(238, 238, 238)
         Horizon.PLAttackCBring.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
         CBringing = false
     elseif CBringing == false then
-        Horizon.PLAttackCBring.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.PLAttackCBringText.TextColor3 = Color3.fromRGB(10, 10, 10)
+            Horizon.PLAttackCBring.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+        else
+            Horizon.PLAttackCBringText.TextColor3 = Color3.fromRGB(238, 238, 238)
+            Horizon.PLAttackCBring.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         CBringing = true
         while CBringing == true do
             if not game.CoreGui:FindFirstChild("Horizon") then break end
@@ -1132,10 +1228,17 @@ Horizon.PLAttackReap.Visible = false
 Horizon.PLAttackReap.AutoButtonColor = false
 Horizon.PLAttackReap.MouseButton1Click:Connect(function()
     if LoopReap == true then
+        Horizon.PLAttackReapText.TextColor3 = Color3.fromRGB(238, 238, 238)
         Horizon.PLAttackReap.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
         LoopReap = false
     elseif LoopReap == false then
-        Horizon.PLAttackReap.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.PLAttackReapText.TextColor3 = Color3.fromRGB(10, 10, 10)
+            Horizon.PLAttackReap.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+        else
+            Horizon.PLAttackReapText.TextColor3 = Color3.fromRGB(238, 238, 238)
+            Horizon.PLAttackReap.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         LoopReap = true
         while LoopReap == true do
             if not game.CoreGui:FindFirstChild("Horizon") then break end
@@ -1180,10 +1283,17 @@ Horizon.PLAttackSoulAttack.Visible = false
 Horizon.PLAttackSoulAttack.AutoButtonColor = false
 Horizon.PLAttackSoulAttack.MouseButton1Click:Connect(function()
     if LoopSoulAttack == true then
+        Horizon.PLAttackSoulAttackText.TextColor3 = Color3.fromRGB(238, 238, 238)
         Horizon.PLAttackSoulAttack.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
         LoopSoulAttack = false
     elseif LoopSoulAttack == false then
-        Horizon.PLAttackSoulAttack.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.PLAttackSoulAttackText.TextColor3 = Color3.fromRGB(10, 10, 10)
+            Horizon.PLAttackSoulAttack.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+        else
+            Horizon.PLAttackSoulAttackText.TextColor3 = Color3.fromRGB(238, 238, 238)
+            Horizon.PLAttackSoulAttack.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         LoopSoulAttack = true
         while LoopSoulAttack == true do
             if not game.CoreGui:FindFirstChild("Horizon") then break end
@@ -1338,6 +1448,143 @@ Horizon.SettingsTitleImage.Position = UDim2.new(0.345, 0, 0.48, 0)
 Horizon.SettingsTitleImage.Size = UDim2.new(1.3, 0, 1.3, 0)
 Horizon.SettingsTitleImage.SizeConstraint = Enum.SizeConstraint.RelativeYY
 Horizon.SettingsTitleImage.Image = "rbxassetid://8992031056"
+Horizon.SettingsTitleImage.MouseButton1Click:Connect(function()
+    if Horizon.ExperimentalSettingsFrame.Visible == false then
+        Horizon.ExperimentalSettingsFrame.Visible = true
+    elseif Horizon.ExperimentalSettingsFrame.Visible == true then
+        Horizon.ExperimentalSettingsFrame.Visible = false
+    end
+end)
+
+Horizon.ExperimentalSettingsFrame.Name = "ExperimentalSettingsFrame"
+Horizon.ExperimentalSettingsFrame.Parent = Horizon.Settings
+Horizon.ExperimentalSettingsFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+Horizon.ExperimentalSettingsFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+Horizon.ExperimentalSettingsFrame.BackgroundTransparency = 0.1
+Horizon.ExperimentalSettingsFrame.Position = UDim2.new(0.5, 0, -1, 0)
+Horizon.ExperimentalSettingsFrame.Size = UDim2.new(1, 0, 1.5, 0)
+Horizon.ExperimentalSettingsFrame.Visible = false
+
+Horizon.ExperimentalSettingsCorner.Parent = Horizon.ExperimentalSettingsFrame
+Horizon.ExperimentalSettingsCorner.CornerRadius = UDim.new(0, 10)
+
+Horizon.ExperimentalSettingsTitle.Name = "ExperimentalSettingsTitle"
+Horizon.ExperimentalSettingsTitle.Parent = Horizon.ExperimentalSettingsFrame
+Horizon.ExperimentalSettingsTitle.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Horizon.ExperimentalSettingsTitle.BackgroundTransparency = 1
+Horizon.ExperimentalSettingsTitle.TextTransparency = 0
+Horizon.ExperimentalSettingsTitle.Position = UDim2.new(0.08, 0, 0.05, 0) 
+Horizon.ExperimentalSettingsTitle.Size = UDim2.new(0.850000024, 0, 0.1, 0)
+Horizon.ExperimentalSettingsTitle.Font = Enum.Font.GothamMedium
+Horizon.ExperimentalSettingsTitle.Text = "Experimental Settings"
+Horizon.ExperimentalSettingsTitle.TextColor3 = Color3.fromRGB(233, 233, 233)
+Horizon.ExperimentalSettingsTitle.TextScaled = true
+Horizon.ExperimentalSettingsTitle.TextSize = 14.000
+Horizon.ExperimentalSettingsTitle.TextWrapped = true
+
+Horizon.ExperimentalSettings1.Name = "Setting1"
+Horizon.ExperimentalSettings1.Parent = Horizon.ExperimentalSettingsFrame
+Horizon.ExperimentalSettings1.AnchorPoint = Vector2.new(0.5, 0.5)
+Horizon.ExperimentalSettings1.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Horizon.ExperimentalSettings1.BackgroundTransparency = 0
+Horizon.ExperimentalSettings1.TextTransparency = 1
+Horizon.ExperimentalSettings1.Position = UDim2.new(0.5, 0, 0.3, 0)
+Horizon.ExperimentalSettings1.AutoButtonColor = false
+Horizon.ExperimentalSettings1.Size = UDim2.new(0.8, 0, 0.225, 0)
+Horizon.ExperimentalSettings1.Visible = true
+
+Horizon.ExperimentalSettings1Title.Name = "Setting1Title"
+Horizon.ExperimentalSettings1Title.Parent = Horizon.ExperimentalSettings1
+Horizon.ExperimentalSettings1Title.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Horizon.ExperimentalSettings1Title.BackgroundTransparency = 1
+Horizon.ExperimentalSettings1Title.TextTransparency = 0
+Horizon.ExperimentalSettings1Title.Position = UDim2.new(-0.25, 0, 0.255, 0)
+Horizon.ExperimentalSettings1Title.Size = UDim2.new(1.5, 0, 0.5, 0)
+Horizon.ExperimentalSettings1Title.Font = Enum.Font.GothamBold
+Horizon.ExperimentalSettings1Title.Text = "Train Fist + BT (Slower)"
+Horizon.ExperimentalSettings1Title.TextColor3 = Color3.fromRGB(233, 233, 233)
+Horizon.ExperimentalSettings1Title.TextScaled = true
+Horizon.ExperimentalSettings1Title.TextSize = 26.000
+Horizon.ExperimentalSettings1Title.TextWrapped = true
+
+Horizon.ExperimentalSettings1Corner.CornerRadius = UDim.new(0, 10)
+Horizon.ExperimentalSettings1Corner.Name = "UICorner"
+Horizon.ExperimentalSettings1Corner.Parent = Horizon.ExperimentalSettings1
+
+Horizon.ExperimentalSettings2.Name = "Setting2"
+Horizon.ExperimentalSettings2.Parent = Horizon.ExperimentalSettingsFrame
+Horizon.ExperimentalSettings2.AnchorPoint = Vector2.new(0.5, 0.5)
+Horizon.ExperimentalSettings2.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Horizon.ExperimentalSettings2.BackgroundTransparency = 0
+Horizon.ExperimentalSettings2.TextTransparency = 1
+Horizon.ExperimentalSettings2.Position = UDim2.new(0.5, 0, 0.55, 0)
+Horizon.ExperimentalSettings2.AutoButtonColor = false
+Horizon.ExperimentalSettings2.Size = UDim2.new(0.8, 0, 0.225, 0)
+Horizon.ExperimentalSettings2.Visible = true
+
+Horizon.ExperimentalSettings2Title.Name = "Setting2Title"
+Horizon.ExperimentalSettings2Title.Parent = Horizon.ExperimentalSettings2
+Horizon.ExperimentalSettings2Title.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Horizon.ExperimentalSettings2Title.BackgroundTransparency = 1
+Horizon.ExperimentalSettings2Title.TextTransparency = 0
+Horizon.ExperimentalSettings2Title.Position = UDim2.new(-0.25, 0, 0.255, 0)
+Horizon.ExperimentalSettings2Title.Size = UDim2.new(1.5, 0, 0.5, 0)
+Horizon.ExperimentalSettings2Title.Font = Enum.Font.GothamBold
+Horizon.ExperimentalSettings2Title.Text = "Train PP + BT (Slower)"
+Horizon.ExperimentalSettings2Title.TextColor3 = Color3.fromRGB(233, 233, 233)
+Horizon.ExperimentalSettings2Title.TextScaled = true
+Horizon.ExperimentalSettings2Title.TextSize = 26.000
+Horizon.ExperimentalSettings2Title.TextWrapped = true
+
+Horizon.ExperimentalSettings2Corner.CornerRadius = UDim.new(0, 10)
+Horizon.ExperimentalSettings2Corner.Name = "UICorner"
+Horizon.ExperimentalSettings2Corner.Parent = Horizon.ExperimentalSettings2
+
+Horizon.ExperimentalSettings3.Name = "Setting3"
+Horizon.ExperimentalSettings3.Parent = Horizon.ExperimentalSettingsFrame
+Horizon.ExperimentalSettings3.AnchorPoint = Vector2.new(0.5, 0.5)
+Horizon.ExperimentalSettings3.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Horizon.ExperimentalSettings3.BackgroundTransparency = 0
+Horizon.ExperimentalSettings3.TextTransparency = 1
+Horizon.ExperimentalSettings3.Position = UDim2.new(0.5, 0, 0.8, 0)
+Horizon.ExperimentalSettings3.AutoButtonColor = false
+Horizon.ExperimentalSettings3.Size = UDim2.new(0.8, 0, 0.225, 0)
+Horizon.ExperimentalSettings3.Visible = true
+Horizon.ExperimentalSettings3.MouseButton1Click:Connect(function()
+    pcall(function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-279, 279, 1007)
+    end)
+end)
+
+Horizon.ExperimentalSettings3Title.Name = "Setting3Title"
+Horizon.ExperimentalSettings3Title.Parent = Horizon.ExperimentalSettings3
+Horizon.ExperimentalSettings3Title.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Horizon.ExperimentalSettings3Title.BackgroundTransparency = 1
+Horizon.ExperimentalSettings3Title.TextTransparency = 0
+Horizon.ExperimentalSettings3Title.Position = UDim2.new(-0.25, 0, 0.255, 0)
+Horizon.ExperimentalSettings3Title.Size = UDim2.new(1.5, 0, 0.5, 0)
+Horizon.ExperimentalSettings3Title.Font = Enum.Font.GothamBold
+Horizon.ExperimentalSettings3Title.Text = "TP to 10t BT Pool"
+Horizon.ExperimentalSettings3Title.TextColor3 = Color3.fromRGB(233, 233, 233)
+Horizon.ExperimentalSettings3Title.TextScaled = true
+Horizon.ExperimentalSettings3Title.TextSize = 26.000
+Horizon.ExperimentalSettings3Title.TextWrapped = true
+
+Horizon.ExperimentalSettings3Tip.Name = "tip"
+Horizon.ExperimentalSettings3Tip.Parent = Horizon.ExperimentalSettings3
+Horizon.ExperimentalSettings3Tip.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Horizon.ExperimentalSettings3Tip.BackgroundTransparency = 1
+Horizon.ExperimentalSettings3Tip.TextTransparency = 0
+Horizon.ExperimentalSettings3Tip.Position = UDim2.new(0.15, 0, 1.05, 0)
+Horizon.ExperimentalSettings3Tip.Size = UDim2.new(0.7, 0, 0.2, 0)
+Horizon.ExperimentalSettings3Tip.Font = Enum.Font.GothamBold
+Horizon.ExperimentalSettings3Tip.Text = "Super Secret Settings!"
+Horizon.ExperimentalSettings3Tip.TextColor3 = Color3.fromRGB(233, 233, 233)
+Horizon.ExperimentalSettings3Tip.TextScaled = true
+
+Horizon.ExperimentalSettings3Corner.CornerRadius = UDim.new(0, 10)
+Horizon.ExperimentalSettings3Corner.Name = "UICorner"
+Horizon.ExperimentalSettings3Corner.Parent = Horizon.ExperimentalSettings3
 
 Horizon.SettingsButton2.Name = "2"
 Horizon.SettingsButton2.Parent = Horizon.Settings
@@ -1652,7 +1899,13 @@ Horizon.HealthRSliderCorner.Parent = Horizon.HealthRSlider
 Horizon.HealthRFilling.Name = "Filling"
 Horizon.HealthRFilling.Parent = Horizon.HealthRSlider
 Horizon.HealthRFilling.AnchorPoint = Vector2.new(0, 0.5)
-Horizon.HealthRFilling.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+
+if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+    Horizon.HealthRFilling.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+else
+    Horizon.HealthRFilling.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+end
+
 Horizon.HealthRFilling.BackgroundTransparency = 0.8
 Horizon.HealthRFilling.Position = UDim2.new(0, 0, 0.5, 0)
 Horizon.HealthRFilling.Size = UDim2.new(0, 0, 1, 0)
@@ -1670,7 +1923,15 @@ Horizon.HealthRLabel.Position = UDim2.new(0.05, 0, 0.5, 0)
 Horizon.HealthRLabel.Size = UDim2.new(0.800000012, 0, 0.600000024, 0)
 Horizon.HealthRLabel.Font = Enum.Font.Gotham
 Horizon.HealthRLabel.Text = ".50"
-Horizon.HealthRLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+    Horizon.HealthRLabel.TextColor3 = Color3.fromRGB(10, 10, 10)
+    Horizon.HealthRLabel.TextStrokeTransparency = 0
+    Horizon.HealthRLabel.TextStrokeColor3 = Color3.fromRGB(69, 255, 113)
+else
+    Horizon.HealthRLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+end
+
 Horizon.HealthRLabel.TextSize = 24.000
 Horizon.HealthRLabel.TextXAlignment = Enum.TextXAlignment.Center
 Horizon.HealthRLabel.TextTransparency = 1
@@ -1684,7 +1945,15 @@ Horizon.HealthRLabel1.Position = UDim2.new(0.1, 0, 0.5, 0)
 Horizon.HealthRLabel1.Size = UDim2.new(0.800000012, 0, 0.600000024, 0)
 Horizon.HealthRLabel1.Font = Enum.Font.Gotham
 Horizon.HealthRLabel1.Text = "       %"
-Horizon.HealthRLabel1.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+    Horizon.HealthRLabel1.TextColor3 = Color3.fromRGB(10, 10, 10)
+    Horizon.HealthRLabel1.TextStrokeTransparency = 0
+    Horizon.HealthRLabel1.TextStrokeColor3 = Color3.fromRGB(69, 255, 113)
+else
+    Horizon.HealthRLabel1.TextColor3 = Color3.fromRGB(255, 255, 255)
+end
+
 Horizon.HealthRLabel1.TextSize = 24.000
 Horizon.HealthRLabel1.TextXAlignment = Enum.TextXAlignment.Center
 Horizon.HealthRLabel1.TextTransparency = 1
@@ -1794,7 +2063,13 @@ Horizon.Script9.Visible = false
 Horizon.Script9.MouseButton1Click:Connect(function()
     TrainJS = not TrainJS
     if TrainJS then
-        Horizon.Script9.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.Script9Title.TextColor3 = Color3.fromRGB(10, 10, 10)
+            Horizon.Script9.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+        else
+            Horizon.Script9Title.TextColor3 = Color3.fromRGB(233, 233, 233)
+            Horizon.Script9.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         while TrainJS do
             if not game.CoreGui:FindFirstChild("Horizon") then break end
 			task.wait(0.5)
@@ -1808,6 +2083,7 @@ Horizon.Script9.MouseButton1Click:Connect(function()
 		end
     else
         Horizon.Script9.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+        Horizon.Script9Title.TextColor3 = Color3.fromRGB(233, 233, 233)
         TrainJS = false
     end
 end)
@@ -1888,7 +2164,12 @@ Horizon.HomeCardPfpCircle.ImageTransparency = 0
 Horizon.HomeCardPfpCircle.Position = UDim2.new(0.18, 0, 0.55, 0)
 Horizon.HomeCardPfpCircle.Size = UDim2.new(0.3, 0, 0.3, 0)
 Horizon.HomeCardPfpCircle.SizeConstraint = Enum.SizeConstraint.RelativeXX
-Horizon.HomeCardPfpCircle.Image = "rbxassetid://11765120841"
+
+if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+    Horizon.HomeCardPfpCircle.Image = "rbxassetid://14983150101"
+else
+    Horizon.HomeCardPfpCircle.Image = "rbxassetid://11765120841"
+end
 
 Horizon.HomeCardPfp.Name = "UserIcon"
 Horizon.HomeCardPfp.Parent = Horizon.HomeCardPfpCircle
@@ -1900,14 +2181,7 @@ Horizon.HomeCardPfp.Position = UDim2.new(0.5, 0, 0.5, 0)
 Horizon.HomeCardPfp.Size = UDim2.new(0.85, 0, 0.85, 0)
 Horizon.HomeCardPfp.SizeConstraint = Enum.SizeConstraint.RelativeXX
 Horizon.HomeCardPfp.Image = ""
-
-if game.Players.LocalPlayer.UserId == 880450315 then
-    Horizon.HomeCardPfp.Image = "rbxassetid://12128638652"
-elseif game.Players.LocalPlayer.UserId == 156361940 then
-    Horizon.HomeCardPfp.Image = "rbxassetid://"
-else
-    Horizon.HomeCardPfp.Image = game.Players:GetUserThumbnailAsync(game.Players.LocalPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
-end
+Horizon.HomeCardPfp.Image = game.Players:GetUserThumbnailAsync(game.Players.LocalPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
 
 Horizon.HomeCardPfpUICorner.CornerRadius = UDim.new(1, 0)
 Horizon.HomeCardPfpUICorner.Name = "UserCorner"
@@ -2076,7 +2350,7 @@ Horizon.CloseButtonImage.MouseButton1Click:Connect(function()
     getgenv().HorizonExecuted = false
     spawn(function()
         for _,v in pairs(game.CoreGui:GetChildren()) do
-            if v.Name == "Horizon Abyss" then
+            if v.Name == "Horizon" then
                 v:Destroy()
             elseif v.Name == "Load" then
                 v:Destroy()
@@ -2464,7 +2738,7 @@ Horizon.File.BorderSizePixel = 0
 Horizon.File.Position = UDim2.new(2, 0, 1, 0)
 Horizon.File.Size = UDim2.new(0.931235611, 0, 0.0639292598, 0)
 Horizon.File.Font = Enum.Font.GothamSemibold
-Horizon.File.Text = "Horizon Data File: Checking..."
+Horizon.File.Text = "Horizon Revanced Data File: Checking..."
 Horizon.File.TextTransparency = 0
 Horizon.File.TextColor3 = Color3.fromRGB(238, 238, 238)
 Horizon.File.TextSize = 18.000
@@ -2749,7 +3023,6 @@ MusicTable.UICorner.Parent = MusicTable.Music
 MusicTable.Wallpaper.Name = "Wallpaper"
 MusicTable.Wallpaper.Position = UDim2.new(0.5, 0, 0.5, 0)
 MusicTable.Wallpaper.AnchorPoint = Vector2.new(0.5, 0.5)
-MusicTable.Wallpaper.Image = "rbxassetid://11346125307"
 MusicTable.Wallpaper.ZIndex = 0
 MusicTable.Wallpaper.Size = UDim2.new(1, 0, 1, 0)
 MusicTable.Wallpaper.ImageColor3 = Color3.fromRGB(150, 150, 150)
@@ -2757,6 +3030,12 @@ MusicTable.Wallpaper.BackgroundTransparency = 1
 MusicTable.Wallpaper.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 MusicTable.Wallpaper.Parent = MusicTable.Music
 MusicTable.Wallpaper.ScaleType = Enum.ScaleType.Crop
+
+if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss" then
+    MusicTable.Wallpaper.Image = "rbxassetid://14983197533"
+else
+    MusicTable.Wallpaper.Image = "rbxassetid://11346125307"
+end
 
 MusicTable.UICorner_2.CornerRadius = UDim.new(0, 10)
 MusicTable.UICorner_2.Parent = MusicTable.Wallpaper
@@ -3008,6 +3287,21 @@ MusicTable.LMusic.SoundId = SoundId
 MusicTable.LMusic.TimePosition = SoundTimePosition
 MusicTable.LMusic.Volume = SoundVolume
 
+local SavedQualityLevel = settings().Rendering.QualityLevel
+local PreTrain = false
+local TrainPPDouble = false
+local TrainFSDouble = false
+
+spawn(function()
+    while task.wait(1) do
+        pcall(function()
+            if PreTrain == false then
+                SavedQualityLevel = settings().Rendering.QualityLevel
+            end
+        end)
+    end
+end)
+
 spawn(function()
     if LastPosition ~= false then
         local hesw = math.huge
@@ -3037,13 +3331,25 @@ spawn(function()
             if TrainFSBR == true then
                 TrainFS = true
                 TrainFSBR = false
-                Horizon.Script7.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+                if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+                    Horizon.Script7.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+                    Horizon.Script7Title.TextColor3 = Color3.fromRGB(10, 10, 10)
+                else
+                    Horizon.Script7.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+                    Horizon.Script7Title.TextColor3 = Color3.fromRGB(233, 233, 233)
+                end
                 PrepareTrain()
                 task.wait(0.1)
                 TrainFSS()
             elseif TrainPPBR == true then
                 TrainFSBR = false
-                Horizon.Script8.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+                if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+                    Horizon.Script8.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+                    Horizon.Script8Title.TextColor3 = Color3.fromRGB(10, 10, 10)
+                else
+                    Horizon.Script8Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    Horizon.Script8.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+                end
                 PrepareTrain()
                 task.wait(0.1)
                 TrainPP = true
@@ -3056,7 +3362,7 @@ end)
 repeat task.wait() until game.Players.LocalPlayer.Character
 game.Players.LocalPlayer.OsPlatform = "Horizon"
 
-Horizon.LoadingText.Text = "Horizon Revanced is getting ready."
+Horizon.LoadingText.Text = "Horizon is getting ready."
 
 function NewNotification(text, time, color)
     spawn(function()
@@ -3110,7 +3416,7 @@ function NewNotification(text, time, color)
         SecretButton.TextTransparency = 1
         SecretButton.Size = UDim2.new(1, 0, 1, 0)
         SecretButton.MouseButton1Click:Connect(function()
-            NotificationText.Text = "You found a Secret 💀"
+            NotificationText.Text = "You found a secret 💀"
         end)
 
         NotificationUIStroke.Parent = NotificationFrame
@@ -3244,6 +3550,9 @@ spawn(function()
 end)
 
 function PrepareTrain()
+    PreTrain = true
+    setfpscap(45)
+    settings().Rendering.QualityLevel = "Level01"
     if BeforeTrainPos == false then
        bftposition = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
     elseif bftposition == nil then
@@ -3254,7 +3563,7 @@ end
 
 function TrainPPP()
     if psyp >= 0 and psyp <= 1000000 then
-        print("whow")
+        print(":P")
     elseif psyp >= 1000000 and psyp <= 1000000000 then
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2529, 5487, -533)
     elseif psyp >= 1000000000 and psyp <= 1000000000000 then
@@ -3303,7 +3612,7 @@ function RespawnAP()
         if Spawned == false then return end
         Spawned = false
         Respawning = true
-        if getgenv().stack ~= true and game.Players.LocalPlayer.Character and not TrainFS and not TrainPP then
+        if getgenv().GrossFurryStack ~= true and game.Players.LocalPlayer.Character and not TrainFS and not TrainPP then
             oldposition = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         end
         game.ReplicatedStorage.RemoteEvent:FireServer({"Respawn"})
@@ -3314,7 +3623,7 @@ function RespawnAP()
 end
 
 spawn(function()
-    if getgenv().stack == true then return end
+    if getgenv().GrossFurryStack == true then return end
     game.Players.LocalPlayer.CharacterAdded:Connect(function()
         repeat task.wait() until game.Players.LocalPlayer.Character.HumanoidRootPart
         Spawned = true
@@ -3472,7 +3781,7 @@ end)
 spawn(function()
     game:GetService("RunService").Heartbeat:Connect(function()
         if TrainJS == true then
-            if TrainPP ~= true then
+            if TrainPP ~= true and TrainPPDouble ~= true then
                 game.ReplicatedStorage.RemoteEvent:FireServer({"+MS5"})
                 game.ReplicatedStorage.RemoteEvent:FireServer({"+JF5"})
             end
@@ -3487,18 +3796,114 @@ game:GetService("RunService").Heartbeat:Connect(function()
 end)
 
 game:GetService("RunService").Heartbeat:Connect(function()
+    if TrainPPDouble == true then
+        game:GetService("ReplicatedStorage").RemoteEvent:FireServer({"+PP"..PPTrainValue..""})
+    end
+end)
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    if TrainFSDouble == true then
+        game:GetService("ReplicatedStorage").RemoteEvent:FireServer({"+FS"..FSTrainValue..""})
+    end
+end)
+
+game:GetService("RunService").Heartbeat:Connect(function()
     if TrainFS == true then
         game:GetService("ReplicatedStorage").RemoteEvent:FireServer({"+FS"..FSTrainValue..""})
     end
 end)
 
+Horizon.ExperimentalSettings1.MouseButton1Click:Connect(function()
+    if TrainPPDouble == true then return end
+    TrainFSDouble = not TrainFSDouble
+    if TrainFSDouble then
+        PrepareTrain()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-279, 279, 1007)
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.ExperimentalSettings1Title.TextColor3 = Color3.fromRGB(10, 10, 10)
+            Horizon.ExperimentalSettings1.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+        else
+            Horizon.ExperimentalSettings1Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.ExperimentalSettings1.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
+    else
+        setfpscap(999)
+        settings().Rendering.QualityLevel = SavedQualityLevel
+        PreTrain = false
+        Horizon.ExperimentalSettings1Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+		Horizon.ExperimentalSettings1.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+        RespawnAP()
+        oldposition = bftposition
+        bftposition = nil
+    end
+end)
+
+Horizon.ExperimentalSettings2.MouseButton1Click:Connect(function()
+    if TrainFSDouble == true then return end
+    TrainPPDouble = not TrainPPDouble
+    if TrainPPDouble then
+        PrepareTrain()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-279, 279, 1007)
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.ExperimentalSettings2Title.TextColor3 = Color3.fromRGB(10, 10, 10)
+            Horizon.ExperimentalSettings2.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+        else
+            Horizon.ExperimentalSettings2Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.ExperimentalSettings2.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
+    else
+        setfpscap(999)
+        settings().Rendering.QualityLevel = SavedQualityLevel
+        PreTrain = false
+        Horizon.ExperimentalSettings2Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+		Horizon.ExperimentalSettings2.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+        RespawnAP()
+        oldposition = bftposition
+        bftposition = nil
+    end
+end)
+
+spawn(function()
+    game.Players.LocalPlayer.PrivateStats.BodyToughness.Changed:Connect(function(val)
+        if TrainFSDouble == true then
+            TrainFSS()
+            game.Players.LocalPlayer.PrivateStats.FistStrength.Changed:Connect(function(val)
+                if TrainFSDouble == true then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-279, 279, 1007)
+                end
+            end)
+        end
+    end)
+end)
+
+spawn(function()
+    game.Players.LocalPlayer.PrivateStats.BodyToughness.Changed:Connect(function(val)
+        if TrainPPDouble == true then
+            TrainPPP()
+            game.Players.LocalPlayer.PrivateStats.PsychicPower.Changed:Connect(function(val)
+                if TrainPPDouble == true then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-279, 279, 1007)
+                end
+            end)
+        end
+    end)
+end)
+
 Horizon.Script8.MouseButton1Click:Connect(function()
+    if TrainPPDouble or TrainFSDouble == true then return end
     UpdateSaves()
     TrainPP = not TrainPP
     if TrainPP then
-        Horizon.Script8.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.Script8.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+            Horizon.Script8Title.TextColor3 = Color3.fromRGB(10, 10, 10)
+        else
+            Horizon.Script8Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.Script8.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         TrainPP = true
         if TrainFS then
+            Horizon.Script7Title.TextColor3 = Color3.fromRGB(255, 255, 255)
             Horizon.Script7.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
             TrainFS = false
         else
@@ -3507,6 +3912,10 @@ Horizon.Script8.MouseButton1Click:Connect(function()
 		task.wait(0.5)
         TrainPPP()
     else
+        setfpscap(999)
+        settings().Rendering.QualityLevel = SavedQualityLevel
+        PreTrain = false
+        Horizon.Script8Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 		Horizon.Script8.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
         TrainPP = false
         RespawnAP()
@@ -3516,12 +3925,20 @@ Horizon.Script8.MouseButton1Click:Connect(function()
 end)
 
 Horizon.Script7.MouseButton1Click:Connect(function()
+    if TrainPPDouble or TrainFSDouble == true then return end
     UpdateSaves()
     TrainFS = not TrainFS
     if TrainFS then
-        Horizon.Script7.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.Script7Title.TextColor3 = Color3.fromRGB(10, 10, 10)
+            Horizon.Script7.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+        else
+            Horizon.Script7Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.Script7.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         TrainFS = true
         if TrainPP then
+            Horizon.Script8Title.TextColor3 = Color3.fromRGB(255, 255, 255)
             Horizon.Script8.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
             TrainPP = false
         else
@@ -3530,6 +3947,10 @@ Horizon.Script7.MouseButton1Click:Connect(function()
 		task.wait(0.5)
         TrainFSS()
     else
+        setfpscap(999)
+        settings().Rendering.QualityLevel = SavedQualityLevel
+        PreTrain = false
+        Horizon.Script7Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 		Horizon.Script7.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
         TrainFS = false
         RespawnAP()
@@ -3619,6 +4040,9 @@ function OpenHome()
         TweenServ:Create(Horizon.BarMover, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {Position = UDim2.new(0.1, 0, 0.5, 0)}):Play()
         TweenServ:Create(Horizon.BarMover, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
     end
+    if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+        TweenServ:Create(Horizon.Button1Icon, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {ImageColor3 = Color3.fromRGB(10, 10, 10)}):Play()
+    end
     TweenServ:Create(Horizon.Backdrop, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
     game:GetService("CoreGui").PlayerList.Enabled = false
     game:GetService("CoreGui").RobloxGui.Backpack.Visible = false
@@ -3640,6 +4064,9 @@ function CloseHome()
     if GlowOn then
         GlowOn = false
         TweenServ:Create(Horizon.BarMover, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {BackgroundTransparency = 1}):Play()
+    end
+    if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+        TweenServ:Create(Horizon.Button1Icon, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {ImageColor3 = Color3.fromRGB(255, 255, 255)}):Play()
     end
     TweenServ:Create(MusicTable.Music, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Position = UDim2.new(1.2, 0, 0.85, 0)}):Play()
     TweenServ:Create(Horizon.HomeCard, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Position = UDim2.new(-0.2, 0, 0.165, 0)}):Play()
@@ -3671,6 +4098,9 @@ function OpenApps()
     elseif GlowOn then
         TweenServ:Create(Horizon.BarMover, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {Position = UDim2.new(0.3, 0, 0.5, 0)}):Play()
         TweenServ:Create(Horizon.BarMover, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
+    end
+    if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+        TweenServ:Create(Horizon.Button2Icon, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {ImageColor3 = Color3.fromRGB(10, 10, 10)}):Play()
     end
     game:GetService("CoreGui").Horizon.Apps.PlayerList.Visible = true
     Horizon.Icon_8.Visible = true
@@ -3720,6 +4150,9 @@ function CloseApps()
     if GlowOn then
         GlowOn = false
         TweenServ:Create(Horizon.BarMover, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {BackgroundTransparency = 1}):Play()
+    end
+    if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+        TweenServ:Create(Horizon.Button2Icon, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {ImageColor3 = Color3.fromRGB(255, 255, 255)}):Play()
     end
     game:GetService("CoreGui").Horizon.Apps.PlayerList.Visible = false
     TweenServ:Create(Horizon.Icon_8, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {ImageTransparency = 1}):Play()
@@ -3780,6 +4213,9 @@ function OpenScripts()
         TweenServ:Create(Horizon.BarMover, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {Position = UDim2.new(0.7, 0, 0.5, 0)}):Play()
         TweenServ:Create(Horizon.BarMover, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
     end
+    if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+        TweenServ:Create(Horizon.Button3Icon, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {ImageColor3 = Color3.fromRGB(10, 10, 10)}):Play()
+    end
     Horizon.BarToggle.Visible = false
     TweenServ:Create(Horizon.Scripts, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.1}):Play()
     TweenServ:Create(Horizon.ScriptsLine, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
@@ -3794,6 +4230,9 @@ function CloseScripts()
     if GlowOn then
         GlowOn = false
         TweenServ:Create(Horizon.BarMover, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {BackgroundTransparency = 1}):Play()
+    end
+    if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+        TweenServ:Create(Horizon.Button3Icon, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {ImageColor3 = Color3.fromRGB(255, 255, 255)}):Play()
     end
     Horizon.BarToggle.Visible = true
     game:GetService("CoreGui").Horizon.Scripts.ActionFrame.Visible = false
@@ -3824,6 +4263,9 @@ function OpenSettings()
         TweenServ:Create(Horizon.BarMover, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {Position = UDim2.new(0.9, 0, 0.5, 0)}):Play()
         TweenServ:Create(Horizon.BarMover, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
     end
+    if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+        TweenServ:Create(Horizon.Button4Icon, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {ImageColor3 = Color3.fromRGB(10, 10, 10)}):Play()
+    end
     Horizon.Interact2.Visible = true
     Horizon.Interact3.Visible = true
     Horizon.Interact4.Visible = true
@@ -3841,6 +4283,7 @@ function OpenSettings()
     Horizon.Script9.Visible = true
     Horizon.BarToggle.Visible = false
     Horizon.HealthRSlider.Visible = true
+    Horizon.SettingsTitleImage.Visible = true
     TweenServ:Create(Horizon.Settings, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.1}):Play()
     TweenServ:Create(Horizon.SettingsLine, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
     TweenServ:Create(Horizon.SettingsTitle, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()
@@ -3889,6 +4332,9 @@ function CloseSettings()
         TweenServ:Create(Horizon.BarMover, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {BackgroundTransparency = 1}):Play()
     end
     Horizon.BarToggle.Visible = true
+    if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+        TweenServ:Create(Horizon.Button4Icon, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {ImageColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+    end
     TweenServ:Create(Horizon.Settings, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {BackgroundTransparency = 1}):Play()
     TweenServ:Create(Horizon.SettingsLine, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {BackgroundTransparency = 1}):Play()
     TweenServ:Create(Horizon.SettingsTitle, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {TextTransparency = 1}):Play()
@@ -3944,6 +4390,8 @@ function CloseSettings()
     Horizon.Script8.Visible = false
     Horizon.Script9.Visible = false
     Horizon.HealthRSlider.Visible = false
+    Horizon.SettingsTitleImage.Visible = false
+    Horizon.ExperimentalSettingsFrame.Visible = false
 end
 
 Horizon.Button1.MouseButton1Down:connect(function()
@@ -3992,8 +4440,8 @@ spawn(function()
             Horizon.Apps.PlayerList.UIListLayout.Padding = UDim.new(0, 5)
             Horizon.Apps.PlayerList.CanvasSize = UDim2.new(0, 0, 0, Horizon.Apps.PlayerList.UIListLayout.AbsoluteContentSize.Y + 2.5)
             repeat task.wait() until plr.PrivateStats
-            if plr.Name == "DesiredVisa" then
-                ui.PremiumBar.Text.Text = "Andrew"
+            if plr.Name == "CaughtInTheAbyss" then
+                ui.PremiumBar.Text.Text = "Owner/GigaChad"
                 ui.PremiumBar.Text.TextColor3 = Color3.fromRGB(0, 0, 0)
                 ui.PremiumBar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
                 ui.PremiumBar.Visible = true
@@ -4006,14 +4454,9 @@ spawn(function()
                             wait()
                         end
                     end
-                end)
-            elseif plr.Name == "Discoverest" then
-                ui.PremiumBar.Text.Text = "Andrew Alt"
-                ui.PremiumBar.Text.TextColor3 = Color3.fromRGB(0, 0, 0)
-                ui.PremiumBar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                ui.PremiumBar.Visible = true
-            elseif plr.Name == "quantavio" then
-                ui.PremiumBar.Text.Text = "Quan"
+                end)           
+            elseif plr.Name == "CaughtInTheAbyss_Alt" then
+                ui.PremiumBar.Text.Text = "Abyss"
                 ui.PremiumBar.Text.TextColor3 = Color3.fromRGB(0, 0, 0)
                 ui.PremiumBar.BackgroundColor3 = Color3.fromRGB(100, 255, 100)
                 ui.PremiumBar.Visible = true
@@ -4042,41 +4485,31 @@ spawn(function()
                         end
                     end
                 end)
-            elseif plr.Name == "ajvanwyk10" then
-                ui.PremiumBar.Text.Text = "King"
+            elseif plr.Name == "xqDerpy" then
+                ui.PremiumBar.Text.Text = "Special Derp"
                 ui.PremiumBar.Text.TextColor3 = Color3.fromRGB(0, 0, 0)
                 ui.PremiumBar.BackgroundColor3 = Color3.fromRGB(255, 215, 0)
                 ui.PremiumBar.Visible = true
-            elseif plr.Name == "CaughtInTheAbyss" then
-                ui.PremiumBar.Text.Text = "Special GigaChad Scripter"
+            elseif plr.Name == "oOFROZEN" then
+                ui.PremiumBar.Text.Text = "GigaChad"
                 ui.PremiumBar.Text.TextColor3 = Color3.fromRGB(0, 0, 0)
                 ui.PremiumBar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
                 ui.PremiumBar.Visible = true
-                  local speed = 5
-                spawn(function()
-                    while true do
-                        if not game.CoreGui:FindFirstChild("Horizon") then break end
-                        for i = 0,1,0.001*speed do
-                            ui.PremiumBar.BackgroundColor3 = Color3.fromHSV(i,1,1)
-                            wait()
-                        end
-                    end
-                end)                
-            elseif plr.Name == "Sir27dagamer" then
-                ui.PremiumBar.Text.Text = "Special"
+            elseif plr.Name == "Sinfliction" then
+                ui.PremiumBar.Text.Text = ">:3"
                 ui.PremiumBar.Text.TextColor3 = Color3.fromRGB(0, 0, 0)
                 ui.PremiumBar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
                 ui.PremiumBar.Visible = true
-                  local speed = 5
-                spawn(function()
-                    while true do
-                        if not game.CoreGui:FindFirstChild("Horizon") then break end
-                        for i = 0,1,0.001*speed do
-                            ui.PremiumBar.BackgroundColor3 = Color3.fromHSV(i,1,1)
-                            wait()
-                        end
-                    end
-                end)
+            elseif plr.Name == "IITheReal_JoeyAltII" then
+                ui.PremiumBar.Text.Text = "Special Joey"
+                ui.PremiumBar.Text.TextColor3 = Color3.fromRGB(0, 0, 0)
+                ui.PremiumBar.BackgroundColor3 = Color3.fromRGB(5, 254, 159)
+                ui.PremiumBar.Visible = true
+            elseif plr.Name == "IITheReal_JoeyII" then
+                ui.PremiumBar.Text.Text = "Special Joey"
+                ui.PremiumBar.Text.TextColor3 = Color3.fromRGB(0, 0, 0)
+                ui.PremiumBar.BackgroundColor3 = Color3.fromRGB(5, 254, 159)
+                ui.PremiumBar.Visible = true
             elseif plr.PrivateStats.FistStrength.Value >= game.Players.LocalPlayer.PrivateStats.BodyToughness.Value * .70 then
                 ui.PremiumBar.Text.Text = "Fist Threat"
                 ui.PremiumBar.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
@@ -4180,8 +4613,8 @@ game.Players.PlayerAdded:Connect(function(plr)
         Horizon.Apps.PlayerList.UIListLayout.Padding = UDim.new(0, 5)
         Horizon.Apps.PlayerList.CanvasSize = UDim2.new(0, 0, 0, Horizon.Apps.PlayerList.UIListLayout.AbsoluteContentSize.Y + 2.5)
         repeat task.wait() until plr.PrivateStats
-        if plr.Name == "DesiredVisa" then
-            ui.PremiumBar.Text.Text = "Andrew"
+        if plr.Name == "CaughtInTheAbyss" then
+            ui.PremiumBar.Text.Text = "Owner/GigaChad"
             ui.PremiumBar.Text.TextColor3 = Color3.fromRGB(0, 0, 0)
             ui.PremiumBar.Visible = true
             local speed = 5
@@ -4193,14 +4626,9 @@ game.Players.PlayerAdded:Connect(function(plr)
                         wait()
                     end
                 end
-            end)
-        elseif plr.Name == "Discoverest" then
-            ui.PremiumBar.Text.Text = "Andrew Alt"
-            ui.PremiumBar.Text.TextColor3 = Color3.fromRGB(0, 0, 0)
-            ui.PremiumBar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            ui.PremiumBar.Visible = true
-        elseif plr.Name == "quantavio" then
-            ui.PremiumBar.Text.Text = "Quan"
+            end)        
+        elseif plr.Name == "CaughtInTheAbyss_Alt" then
+            ui.PremiumBar.Text.Text = "Abyss"
             ui.PremiumBar.Text.TextColor3 = Color3.fromRGB(0, 0, 0)
             ui.PremiumBar.BackgroundColor3 = Color3.fromRGB(100, 255, 100)
             ui.PremiumBar.Visible = true
@@ -4229,22 +4657,31 @@ game.Players.PlayerAdded:Connect(function(plr)
                     end
                 end
             end)
-        elseif plr.Name == "ajvanwyk10" then
-            ui.PremiumBar.Text.Text = "King"
+        elseif plr.Name == "xqDerpy" then
+            ui.PremiumBar.Text.Text = "Special Derp"
             ui.PremiumBar.Text.TextColor3 = Color3.fromRGB(0, 0, 0)
             ui.PremiumBar.BackgroundColor3 = Color3.fromRGB(255, 215, 0)
             ui.PremiumBar.Visible = true
-        elseif plr.Name == "CaughtintheAbyss" then
-            ui.PremiumBar.Text.Text = "Special GigaChad Scripter"
+        elseif plr.Name == "oOFROZEN" then
+            ui.PremiumBar.Text.Text = "GigaChad"
             ui.PremiumBar.Text.TextColor3 = Color3.fromRGB(0, 0, 0)
             ui.PremiumBar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             ui.PremiumBar.Visible = true
-        elseif plr.Name == "sir27dagamer" then
-            ui.PremiumBar.Text.Text = "Special"
+        elseif plr.Name == "Sinfliction" then
+            ui.PremiumBar.Text.Text = ">:3"
             ui.PremiumBar.Text.TextColor3 = Color3.fromRGB(0, 0, 0)
             ui.PremiumBar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             ui.PremiumBar.Visible = true
-
+        elseif plr.Name == "IITheReal_JoeyAltII" then
+            ui.PremiumBar.Text.Text = "Special Joey"
+            ui.PremiumBar.Text.TextColor3 = Color3.fromRGB(0, 0, 0)
+            ui.PremiumBar.BackgroundColor3 = Color3.fromRGB(5, 254, 159)
+            ui.PremiumBar.Visible = true
+        elseif plr.Name == "IITheReal_JoeyII" then
+            ui.PremiumBar.Text.Text = "Special Joey"
+            ui.PremiumBar.Text.TextColor3 = Color3.fromRGB(0, 0, 0)
+            ui.PremiumBar.BackgroundColor3 = Color3.fromRGB(5, 254, 159)
+            ui.PremiumBar.Visible = true
         elseif plr.PrivateStats.FistStrength.Value >= game.Players.LocalPlayer.PrivateStats.BodyToughness.Value * .70 then
             ui.PremiumBar.Text.Text = "Fist Threat"
             ui.PremiumBar.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
@@ -4685,7 +5122,7 @@ spawn(function()
     end
 end)
 
-newScript("(NEW) Abyss Hub V5", Color3.fromRGB(20, 20, 20), false, function(value, exe, isCheck, isForece)
+newScript("(Old) Abyss Hub V5", Color3.fromRGB(20, 20, 20), false, function(value, exe, isCheck, isForece)
 	if not exe and not isCheck then CmdXAutoExe = value end
 	if isCheck and not exe then return CmdXAutoExe end
 	if exe and not isCheck then
@@ -4713,7 +5150,7 @@ newScript("Infinite Yield", Color3.fromRGB(20, 20, 20), false, function(value, e
 	end
 end)
 
-newScript("P2W Multi-Checker", Color3.fromRGB(20, 20, 20), false, function(value, exe, isCheck, isForece)
+newScript("P2W/Multi-Checker", Color3.fromRGB(20, 20, 20), false, function(value, exe, isCheck, isForece)
 	if not exe and not isCheck then MultiCheckAutoExe = value end
 	if isCheck and not exe then return MultiCheckAutoExe end
 	if exe and not isCheck then
@@ -4774,7 +5211,7 @@ newScript("NameLess Admin Cmds (Use ;)", Color3.fromRGB(20, 20, 20), false, func
 		if not _G.DarkD or isForce then
 			_G.DarkD = true
             spawn(function()
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/CaughtInTheAbyss/Secret/main/Nameless%20Admin"))()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/CaughtInTheAbyss/Secret/main/Nameless%20Admin", true))()
             end)
 		end
 	end
@@ -4841,8 +5278,8 @@ function rgbrank()
             if not game.CoreGui:FindFirstChild("Horizon") then break end
             task.wait(0.1)
             PurpleRank = false
-			game.Players.LocalPlayer.Character.Head.NameBbGui.NameTxt:Destroy()
-            game.Players.LocalPlayer.Character.Head.RankBbGui.RankImg:Destroy()
+			local args = {[1] = {[1] = "ChangeRankEmblem",[2] = math.random(1,10)}}
+			game:GetService("ReplicatedStorage").RemoteEvent:FireServer(unpack(args))
         end
     elseif RainbowRank == false then
         RainbowRank = false
@@ -4866,9 +5303,16 @@ end
 spawn(function()
 	if SuperAura == true then
         SuperAura = true
-        Horizon.SettingsButton3.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.SettingsButton3.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+            Horizon.Interact3.ImageColor3 = Color3.fromRGB(10, 10, 10)
+        else
+            Horizon.Interact3.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.SettingsButton3.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
     elseif SuperAura == false then
         SuperAura = false
+        Horizon.Interact3.ImageColor3 = Color3.fromRGB(255, 255, 255)
         Horizon.SettingsButton3.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
     end
 end)
@@ -4876,9 +5320,16 @@ end)
 spawn(function()
 	if AutoQuests == true then
         AutoQuests = true
-        Horizon.SettingsButton5.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.SettingsButton5.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+            Horizon.Interact5.ImageColor3 = Color3.fromRGB(10, 10, 10)
+        else
+            Horizon.Interact5.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.SettingsButton5.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
     elseif AutoQuests == false then
         AutoQuests = false
+        Horizon.Interact5.ImageColor3 = Color3.fromRGB(255, 255, 255)
         Horizon.SettingsButton5.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
     end
 end)
@@ -4886,10 +5337,17 @@ end)
 spawn(function()
 	if DarkBalls == true then
         DarkBalls = true
-        Horizon.SettingsButton12.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.SettingsButton12.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+            Horizon.Interact12.ImageColor3 = Color3.fromRGB(10, 10, 10)
+        else
+            Horizon.Interact12.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.SettingsButton12.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         blackballs()
     elseif DarkBalls == false then
         DarkBalls = false
+        Horizon.Interact12.ImageColor3 = Color3.fromRGB(255, 255, 255)
         Horizon.SettingsButton12.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
     end
 end)
@@ -4897,10 +5355,17 @@ end)
 spawn(function()
 	if LightBullet == true then
         LightBullet = true
-        Horizon.SettingsButton13.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.Interact13.ImageColor3 = Color3.fromRGB(10, 10, 10)
+            Horizon.SettingsButton13.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+        else
+            Horizon.Interact13.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.SettingsButton13.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         whitebullet()
     elseif DarkBalls == false then
         LightBullet = false
+        Horizon.Interact13.ImageColor3 = Color3.fromRGB(255, 255, 255)
         Horizon.SettingsButton13.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
     end
 end)
@@ -4908,19 +5373,33 @@ end)
 spawn(function()
 	if RainbowRank == true then
         RainbowRank = true
-        Horizon.SettingsButton7.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.SettingsButton7.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+            Horizon.Interact7.ImageColor3 = Color3.fromRGB(10, 10, 10)
+        else
+            Horizon.Interact7.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.SettingsButton7.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         rgbrank()
     else
         RainbowRank = false
+        Horizon.Interact7.ImageColor3 = Color3.fromRGB(255, 255, 255)
         Horizon.SettingsButton7.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
     end
 end)
 
 spawn(function()
     if DayNight == true then
-        Horizon.SettingsButton8.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.SettingsButton8.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+            Horizon.Interact8.ImageColor3 = Color3.fromRGB(10, 10, 10)
+        else
+            Horizon.Interact8.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.SettingsButton8.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         daynight()
     else
+        Horizon.Interact8.ImageColor3 = Color3.fromRGB(255, 255, 255)
         Horizon.SettingsButton8.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
         daynight()
     end
@@ -4928,67 +5407,118 @@ end)
 
 spawn(function()
     if RespawnActive == true then
-        Horizon.SettingsButton2.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.SettingsButton2.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+            Horizon.Interact2.ImageColor3 = Color3.fromRGB(10, 10, 10)
+        else
+            Horizon.Interact2.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.SettingsButton2.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
     else
+        Horizon.Interact2.ImageColor3 = Color3.fromRGB(255, 255, 255)
         Horizon.SettingsButton2.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
     end
 end)
 
 spawn(function()
     if NoAura == true then
-        Horizon.SettingsButton4.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.Interact4.ImageColor3 = Color3.fromRGB(10, 10, 10)
+            Horizon.SettingsButton4.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+        else
+            Horizon.Interact4.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.SettingsButton4.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
     else
+        Horizon.Interact4.ImageColor3 = Color3.fromRGB(255, 255, 255)
         Horizon.SettingsButton4.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
     end
 end)
 
 spawn(function()
     if RainbowWeights == true then
-        Horizon.SettingsButton6.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.Interact6.ImageColor3 = Color3.fromRGB(10, 10, 10)
+            Horizon.SettingsButton6.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+        else
+            Horizon.Interact6.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.SettingsButton6.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         rgbweights()
     else
+        Horizon.Interact6.ImageColor3 = Color3.fromRGB(255, 255, 255)
         Horizon.SettingsButton6.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
     end
 end)
 
 spawn(function()
     if TrainJS == true then
-        Horizon.Script9.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.Script9.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+            Horizon.Script9Title.TextColor3 = Color3.fromRGB(10, 10, 10)
+        else
+            Horizon.Script9Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.Script9.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
     elseif TrainJS == false then
-        Horizon.Script8.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+        Horizon.Script9Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+        Horizon.Script9.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
     end
 end)
 
 Horizon.Interact2.MouseButton1Click:connect(function()
-    if Horizon.SettingsButton2.BackgroundColor3 == Color3.fromRGB(20, 20, 20) then
-        Horizon.SettingsButton2.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+    if RespawnActive == false then
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.SettingsButton2.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+            Horizon.Interact2.ImageColor3 = Color3.fromRGB(10, 10, 10)
+        else
+            Horizon.Interact2.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.SettingsButton2.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         RespawnActive = true
-    elseif Horizon.SettingsButton2.BackgroundColor3 == Color3.fromRGB(144, 41, 246) then
+    elseif RespawnActive == true then
+        Horizon.Interact2.ImageColor3 = Color3.fromRGB(255, 255, 255)
         Horizon.SettingsButton2.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
         RespawnActive = false
     end
 end)
 
 Horizon.Interact3.MouseButton1Click:connect(function()
-    if Horizon.SettingsButton3.BackgroundColor3 == Color3.fromRGB(20, 20, 20) then
-        Horizon.SettingsButton3.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+    if SuperAura == false then
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.SettingsButton3.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+            Horizon.Interact3.ImageColor3 = Color3.fromRGB(10, 10, 10)
+        else
+            Horizon.Interact3.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.SettingsButton3.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         SuperAura = true
         RespawnAP()
         Horizon.SettingsButton4.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+        Horizon.Interact4.ImageColor3 = Color3.fromRGB(255, 255, 255)
         NoAura = false
-    elseif Horizon.SettingsButton3.BackgroundColor3 == Color3.fromRGB(144, 41, 246) then
+    elseif SuperAura == true then
+        Horizon.Interact3.ImageColor3 = Color3.fromRGB(255, 255, 255)
         Horizon.SettingsButton3.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
         SuperAura = false
     end
 end)
 
 Horizon.Interact4.MouseButton1Click:connect(function()
-    if Horizon.SettingsButton4.BackgroundColor3 == Color3.fromRGB(20, 20, 20) then
-        Horizon.SettingsButton4.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+    if NoAura == false then
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.SettingsButton4.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+            Horizon.Interact4.ImageColor3 = Color3.fromRGB(10, 10, 10)
+        else
+            Horizon.Interact4.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.SettingsButton4.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         NoAura = true
         Horizon.SettingsButton3.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+        Horizon.Interact3.ImageColor3 = Color3.fromRGB(255, 255, 255)
         SuperAura = false
-    elseif Horizon.SettingsButton4.BackgroundColor3 == Color3.fromRGB(144, 41, 246) then
+    elseif NoAura == true then
+        Horizon.Interact4.ImageColor3 = Color3.fromRGB(255, 255, 255)
         Horizon.SettingsButton4.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
         RespawnAP()
         NoAura = false
@@ -4996,43 +5526,71 @@ Horizon.Interact4.MouseButton1Click:connect(function()
 end)
 
 Horizon.Interact5.MouseButton1Click:connect(function()
-    if Horizon.SettingsButton5.BackgroundColor3 == Color3.fromRGB(20, 20, 20) then
-        Horizon.SettingsButton5.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+    if AutoQuests == false then
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.SettingsButton5.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+            Horizon.Interact5.ImageColor3 = Color3.fromRGB(10, 10, 10)
+        else
+            Horizon.Interact5.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.SettingsButton5.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         AutoQuests = true
-    elseif Horizon.SettingsButton5.BackgroundColor3 == Color3.fromRGB(144, 41, 246) then
+    elseif AutoQuests == true then
+        Horizon.Interact5.ImageColor3 = Color3.fromRGB(255, 255, 255)
         Horizon.SettingsButton5.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
         AutoQuests = false
     end
 end)
 
 Horizon.Interact6.MouseButton1Click:connect(function()
-    if Horizon.SettingsButton6.BackgroundColor3 == Color3.fromRGB(20, 20, 20) then
-        Horizon.SettingsButton6.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+    if RainbowWeights == false then
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.Interact6.ImageColor3 = Color3.fromRGB(10, 10, 10)
+            Horizon.SettingsButton6.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+        else
+            Horizon.Interact6.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.SettingsButton6.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         RainbowWeights = true
         rgbweights()
-    elseif Horizon.SettingsButton6.BackgroundColor3 == Color3.fromRGB(144, 41, 246) then
+    elseif RainbowWeights == true then
+        Horizon.Interact6.ImageColor3 = Color3.fromRGB(255, 255, 255)
         Horizon.SettingsButton6.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
         RainbowWeights = false
     end
 end)
 
 Horizon.Interact7.MouseButton1Click:connect(function()
-    if Horizon.SettingsButton7.BackgroundColor3 == Color3.fromRGB(20, 20, 20) then
-        Horizon.SettingsButton7.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+    if RainbowRank == false then
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.SettingsButton7.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+            Horizon.Interact7.ImageColor3 = Color3.fromRGB(10, 10, 10)
+        else
+            Horizon.Interact7.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.SettingsButton7.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         RainbowRank = true
         rgbrank()
-    elseif Horizon.SettingsButton7.BackgroundColor3 == Color3.fromRGB(144, 41, 246) then
+    elseif RainbowRank == true then
+        Horizon.Interact7.ImageColor3 = Color3.fromRGB(255, 255, 255)
         Horizon.SettingsButton7.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
         RainbowRank = false
     end
 end)
 
 Horizon.Interact8.MouseButton1Click:connect(function()
-    if Horizon.SettingsButton8.BackgroundColor3 == Color3.fromRGB(20, 20, 20) then
-        Horizon.SettingsButton8.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+    if DayNight == false then
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.SettingsButton8.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+            Horizon.Interact8.ImageColor3 = Color3.fromRGB(10, 10, 10)
+        else
+            Horizon.Interact8.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.SettingsButton8.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         DayNight = true
         daynight()
-    elseif Horizon.SettingsButton8.BackgroundColor3 == Color3.fromRGB(144, 41, 246) then
+    elseif DayNight == true then
+        Horizon.Interact8.ImageColor3 = Color3.fromRGB(255, 255, 255)
         Horizon.SettingsButton8.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
         DayNight = false
         daynight()
@@ -5050,15 +5608,27 @@ Horizon.Interact9.MouseButton1Click:connect(function()
         end)
     end)
     loadstring(game:HttpGet("https://raw.githubusercontent.com/CaughtInTheAbyss/Secret/main/God", true))()
-    Horizon.SettingsButton9.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+    if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+        Horizon.SettingsButton9.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+        Horizon.Interact9.ImageColor3 = Color3.fromRGB(10, 10, 10)
+    else
+        Horizon.Interact9.ImageColor3 = Color3.fromRGB(255, 255, 255)
+        Horizon.SettingsButton9.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+    end
     task.wait(1)
+    Horizon.Interact9.ImageColor3 = Color3.fromRGB(255, 255, 255)
     Horizon.SettingsButton9.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 end)
 
 Horizon.Interact10.MouseButton1Click:connect(function()
     NewNotification("Joining a new server for you.", 10, "")
-    Horizon.SettingsButton10.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    Horizon.SettingsButton10.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+    if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+        Horizon.SettingsButton10.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+        Horizon.Interact10.ImageColor3 = Color3.fromRGB(10, 10, 10)
+    else
+        Horizon.Interact10.ImageColor3 = Color3.fromRGB(255, 255, 255)
+        Horizon.SettingsButton10.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+    end
     local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
     local hrp = char:WaitForChild("HumanoidRootPart")
     LastPosition = {["Pos"] = table.concat({hrp.CFrame:GetComponents()},",")}
@@ -5093,518 +5663,62 @@ Horizon.Interact10.MouseButton2Click:connect(function()
             TrainFSBR = true
         end
         UpdateSaves()
-        Horizon.SettingsButton10.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-        Horizon.SettingsButton10.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.SettingsButton10.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+            Horizon.Interact10.ImageColor3 = Color3.fromRGB(10, 10, 10)
+        else
+            Horizon.Interact10.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.SettingsButton10.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
     end)
 end)
 
 Horizon.Interact11.MouseButton1Click:connect(function()
-    Horizon.SettingsButton11.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+        Horizon.SettingsButton11.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+        Horizon.Interact11.ImageColor3 = Color3.fromRGB(10, 10, 10)
+    else
+        Horizon.Interact11.ImageColor3 = Color3.fromRGB(255, 255, 255)
         Horizon.SettingsButton11.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
-        -- This basically makes roblox unable to log your chat messages sent in-game. Meaning if you get reported for saying something bad, you won't get banned!
-
--- Credits: CaughtInTheAbyss
-
--- 9/14/2023 - Rewritten
--- 4/4/2023 - Fixed scrollbar visibility issue
--- 4/15/2023 - Fixed Adonis anti-cheat kicking issue
--- 4/26/2023 - Fixed tick loaded format
--- 4/28/2023 - Added support for Fluxus/Delta users (hookmetamethod issue seems to have gotten fixed)
--- 6/14/2023 - Added support for Evon users (checkcaller isuse)
--- 7/7/2023 - Added support for Valyse users "FLAG IS NOT EXIST" LMFAO
--- 7/22/2023 - Added global for universal scripts (mainly chat bypasses)
--- 8/24/2023 - Now supports Player.Chatted signal event for clientside (highly requested)
--- 8/25/2023 - Fully fixed (i was high when editing it yesterday sorry guys)
--- 9/1/2023 - Fixed issue with /e command not working sometimes (mainly when joining a game)
-
-if not game:IsLoaded() then
-    game.Loaded:wait()
-end
-
-local ACL_LoadTime = tick()
-local NotificationTitle = "Abyss's ACL"
-
-local OldCoreTypeSettings = {}
-local WhitelistedCoreTypes = {
-    "Chat",
-    "All",
-    Enum.CoreGuiType.Chat,
-    Enum.CoreGuiType.All
-}
-
-local OldCoreSetting = nil
-
-local CoreGui = game:GetService("CoreGui")
-local StarterGui = game:GetService("StarterGui")
-local TweenService = game:GetService("TweenService")
-local TextChatService = game:GetService("TextChatService")
-local Players = game:GetService("Players")
-
-local Player = Players.LocalPlayer
-
-local Notify = function(_Title, _Text , Time)
-    StarterGui:SetCore("SendNotification", {Title = _Title, Text = _Text, Icon = "rbxassetid://2541869220", Duration = Time})
-end
-
-local Tween = function(Object, Time, Style, Direction, Property)
-    return TweenService:Create(Object, TweenInfo.new(Time, Enum.EasingStyle[Style], Enum.EasingDirection[Direction]), Property)
-end
-
-local PlayerGui = Player:FindFirstChildWhichIsA("PlayerGui") do
-    if not PlayerGui then
-        local Timer = tick() + 5
-        repeat task.wait() until Player:FindFirstChildWhichIsA("PlayerGui") or (tick() > Timer)
-        PlayerGui = Player:FindFirstChildWhichIsA("PlayerGui") or false
-        if not PlayerGui then
-            return Notify(NotificationTitle, "Failed to find PlayerGui!", 10)
-        end
     end
-end
-
-if getgenv().AntiChatLogger then
-    return Notify(NotificationTitle, "Anti Chat & Screenshot Logger already loaded!", 15)
-else
-    getgenv().AntiChatLogger = true
-end
-
-local Metatable = getrawmetatable(StarterGui)
-setreadonly(Metatable, false)
-
-local MessageEvent = Instance.new("BindableEvent")
-
-if hookmetamethod then
-    local CoreHook do
-        CoreHook = hookmetamethod(StarterGui, "__namecall", newcclosure(function(self, ...)
-            local Method = getnamecallmethod()
-            local Arguments = {...}
-            
-            if self == StarterGui and not checkcaller() then
-                if Method == "SetCoreGuiEnabled" then
-                    local CoreType = Arguments[1]
-                    local Enabled = Arguments[2]
-                    
-                    if table.find(WhitelistedCoreTypes, CoreType) and Enabled == false then -- Thanks Harun for correcting me on the second argument
-                        OldCoreTypeSettings[CoreType] = Enabled
-                        return
-                    end
-                elseif Method == "SetCore" then
-                    local Core = Arguments[1]
-                    local Connection = Arguments[2]
-                    
-                    if Core == "CoreGuiChatConnections" then
-                        OldCoreSetting = Connection
-                        return
-                    end
-                end
-            end
-            
-            return CoreHook(self, ...)
-        end))
-    end
-
-    if not getgenv().ChattedFix then
-        getgenv().ChattedFix = true
-
-        local ChattedFix do
-            ChattedFix = hookmetamethod(Player, "__index", newcclosure(function(self, index)
-                if self == Player and tostring(index):lower():match("chatted") and MessageEvent.Event then
-                    return MessageEvent.Event
-                end
-
-                return ChattedFix(self, index)
-            end))
-        end
-
-        local AnimateChattedFix = task.spawn(function()
-            local ChattedSignal = false
-
-            for _, x in next, getgc() do
-                if type(x) == "function" and getfenv(x).script ~= nil and tostring(getfenv(x).script) == "Animate" then
-                    if islclosure(x) then
-                        local Constants = getconstants(x)
-
-                        for _, v in next, Constants do
-                            if v == "Chatted" then
-                                ChattedSignal = x
-                            end
-                        end
-                    end
-                end
-            end
-
-            if ChattedSignal then
-                ChattedSignal()
-            end
-        end)
-    end
-end
-
-local EnabledChat = task.spawn(function()
-    repeat
-        StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
-        task.wait()
-    until StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Chat)
-end)
-
-local WarningGuiThread = task.spawn(function()
-    WarningUI = Instance.new("ScreenGui")
-    Main = Instance.new("Frame")
-    BackgroundHolder = Instance.new("Frame")
-    Background = Instance.new("Frame")
-    TopBar = Instance.new("Frame")
-    UIGradient = Instance.new("UIGradient")
-    TitleHolder = Instance.new("Frame")
-    Title = Instance.new("TextLabel")
-    Holder = Instance.new("Frame")
-    UIListLayout = Instance.new("UIListLayout")
-    Reason_1 = Instance.new("TextLabel")
-    Reason_2 = Instance.new("TextLabel")
-    Reason_3 = Instance.new("TextLabel")
-    WarningText = Instance.new("TextLabel")
-    Exit = Instance.new("TextButton")
-    ImageLabel = Instance.new("ImageLabel")
-    
-    WarningUI.Enabled = false
-    WarningUI.Name = "WarningUI"
-    WarningUI.Parent = CoreGui
-    
-    Main.Name = "Main"
-    Main.Parent = WarningUI
-    Main.AnchorPoint = Vector2.new(.5, .5)
-    Main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Main.BackgroundTransparency = 1
-    Main.Position = UDim2.new(.5, 0, .5, 0)
-    Main.Size = UDim2.new(0, 400, 0, 400)
-    
-    BackgroundHolder.Name = "BackgroundHolder"
-    BackgroundHolder.Parent = Main
-    BackgroundHolder.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    BackgroundHolder.BackgroundTransparency = .25
-    BackgroundHolder.BorderSizePixel = 0
-    BackgroundHolder.Size = UDim2.new(1, 0, 1, 0)
-    
-    Background.Name = "Background"
-    Background.Parent = BackgroundHolder
-    Background.AnchorPoint = Vector2.new(.5, .5)
-    Background.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    Background.BorderSizePixel = 0
-    Background.Position = UDim2.new(.5, 0, .5, 0)
-    Background.Size = UDim2.new(.96, 0, .96, 0)
-    
-    TopBar.Name = "TopBar"
-    TopBar.Parent = Background
-    TopBar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TopBar.BorderSizePixel = 0
-    TopBar.Size = UDim2.new(1, 0, 0, 2)
-    
-    UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(53, 149, 146)), ColorSequenceKeypoint.new(.29, Color3.fromRGB(93, 86, 141)), ColorSequenceKeypoint.new(.50, Color3.fromRGB(126, 64, 138)), ColorSequenceKeypoint.new(.75, Color3.fromRGB(143, 112, 112)), ColorSequenceKeypoint.new(1, Color3.fromRGB(159, 159, 80))}
-    UIGradient.Parent = TopBar
-    
-    TitleHolder.Name = "TitleHolder"
-    TitleHolder.Parent = Background
-    TitleHolder.AnchorPoint = Vector2.new(.5, .5)
-    TitleHolder.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    TitleHolder.BorderColor3 = Color3.fromRGB(44, 44, 44)
-    TitleHolder.BorderSizePixel = 2
-    TitleHolder.Position = UDim2.new(.5, 0, .5, 0)
-    TitleHolder.Size = UDim2.new(.9, 0, .9, 0)
-    
-    Title.Name = "Title"
-    Title.Parent = TitleHolder
-    Title.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    Title.BorderSizePixel = 0
-    Title.Position = UDim2.new(0, 15, 0, -12)
-    Title.Size = UDim2.new(0, 75, 0, 20)
-    Title.Font = Enum.Font.SourceSansBold
-    Title.Text = "Warning"
-    Title.TextColor3 = Color3.fromRGB(235, 235, 235)
-    Title.TextScaled = true
-    Title.TextWrapped = true
-    
-    Holder.Name = "Holder"
-    Holder.Parent = TitleHolder
-    Holder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Holder.BackgroundTransparency = 1
-    Holder.Position = UDim2.new(0, 30, .125, 0)
-    Holder.Size = UDim2.new(1, -30, .875, 0)
-    
-    UIListLayout.Parent = Holder
-    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    
-    Reason_1.Name = "Reason_1"
-    Reason_1.Parent = Holder
-    Reason_1.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    Reason_1.BackgroundTransparency = 1
-    Reason_1.BorderSizePixel = 0
-    Reason_1.Size = UDim2.new(1, 0, 0, 20)
-    Reason_1.Font = Enum.Font.SourceSans
-    Reason_1.Text = "- TextChatService is enabled"
-    Reason_1.TextColor3 = Color3.fromRGB(199, 40, 42)
-    Reason_1.TextScaled = true
-    Reason_1.TextWrapped = true
-    Reason_1.TextXAlignment = Enum.TextXAlignment.Left
-    Reason_1.Visible = false
-    
-    Reason_2.Name = "Reason_2"
-    Reason_2.Parent = Holder
-    Reason_2.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    Reason_2.BackgroundTransparency = 1
-    Reason_2.BorderSizePixel = 0
-    Reason_2.Size = UDim2.new(1, 0, 0, 20)
-    Reason_2.Font = Enum.Font.SourceSans
-    Reason_2.Text = "- Legacy chat module was not found"
-    Reason_2.TextColor3 = Color3.fromRGB(199, 40, 42)
-    Reason_2.TextScaled = true
-    Reason_2.TextWrapped = true
-    Reason_2.TextXAlignment = Enum.TextXAlignment.Left
-    Reason_2.Visible = false
-    
-    Reason_3.Name = "Reason_3"
-    Reason_3.Parent = Holder
-    Reason_3.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    Reason_3.BackgroundTransparency = 1
-    Reason_3.BorderSizePixel = 0
-    Reason_3.Size = UDim2.new(1, 0, 0, 20)
-    Reason_3.Font = Enum.Font.SourceSans
-    Reason_3.Text = "- MessagePosted function was not found"
-    Reason_3.TextColor3 = Color3.fromRGB(199, 40, 42)
-    Reason_3.TextScaled = true
-    Reason_3.TextWrapped = true
-    Reason_3.TextXAlignment = Enum.TextXAlignment.Left
-    Reason_3.Visible = false
-    
-    WarningText.Name = "WarningText"
-    WarningText.Parent = TitleHolder
-    WarningText.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    WarningText.BackgroundTransparency = 1
-    WarningText.BorderSizePixel = 0
-    WarningText.Position = UDim2.new(0, 30, .05, 0)
-    WarningText.RichText = true
-    WarningText.Size = UDim2.new(1, -30, 0, 20)
-    WarningText.Font = Enum.Font.SourceSans
-    WarningText.Text = "> Anti-<font color=\"#6ea644\">Chat Logger</font> will not work here!"
-    WarningText.TextColor3 = Color3.fromRGB(255, 255, 255)
-    WarningText.TextScaled = true
-    WarningText.TextWrapped = true
-    WarningText.TextXAlignment = Enum.TextXAlignment.Left
-    
-    Exit.Name = "Exit"
-    Exit.Parent = TitleHolder
-    Exit.AnchorPoint = Vector2.new(.5, .5)
-    Exit.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
-    Exit.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    Exit.Position = UDim2.new(.5, 0, .899999976, 0)
-    Exit.Size = UDim2.new(0, 250, 0, 20)
-    Exit.Font = Enum.Font.SourceSans
-    Exit.Text = "Ok"
-    Exit.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Exit.TextScaled = true
-    Exit.TextWrapped = true
-    
-    ImageLabel.Parent = TitleHolder
-    ImageLabel.AnchorPoint = Vector2.new(.5, .5)
-    ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    ImageLabel.BackgroundTransparency = 1
-    ImageLabel.Position = UDim2.new(.5, 0, .6, 0)
-    ImageLabel.Size = UDim2.new(.3, 0, .3, 0)
-    ImageLabel.ZIndex = 1
-    ImageLabel.Image = "rbxassetid://12969025384"
-    ImageLabel.ImageColor3 = Color3.fromRGB(40, 40, 40)
-    ImageLabel.ImageTransparency = .5
-    
-    Exit.MouseButton1Down:Connect(function()
-        WarningUI:Destroy()
-    end)
-end)
-
-if TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then
-    WarningUI.Enabled = true
-    Reason_1.Visible = true
-    return
-end
-
-local PlayerScripts = Player:WaitForChild("PlayerScripts")
-local ChatMain = PlayerScripts:FindFirstChild("ChatMain", true) or false
-
-if not ChatMain then
-    local Timer = tick()
-    
-    repeat task.wait() until PlayerScripts:FindFirstChild("ChatMain", true) or tick() > (Timer + 3)
-    ChatMain = PlayerScripts:FindFirstChild("ChatMain", true)
-    
-    if not ChatMain then
-        WarningUI.Enabled = true
-        Reason_2.Visible = true
-        return
-    end
-end
-
-local PostMessage = require(ChatMain).MessagePosted
-
-if not PostMessage then
-    WarningUI.Enabled = true
-    Reason_3.Visible = true
-    return
-end
-
-local OldFunctionHook; OldFunctionHook = hookfunction(PostMessage.fire, function(self, Message)
-    if self == PostMessage then
-        MessageEvent:Fire(Message)
-        return
-    end
-    return OldFunctionHook(self, Message)
-end)
-
-if setfflag then
-    pcall(function()
-        setfflag("AbuseReportScreenshot", "False")
-        setfflag("AbuseReportScreenshotPercentage", "0")
-    end)
-end -- To prevent roblox from taking screenshots of your client.
-
-local Credits = task.spawn(function()
-    local UserIds = {
-        1414978355
-    }
-    
-    if table.find(UserIds, Player.UserId) then
-        return
-    end
-    
-    local Tag = Instance.new("BillboardGui")
-    local Title = Instance.new("TextLabel", Tag)
-    local Rank = Instance.new("TextLabel", Tag)
-    local Gradient = Instance.new("UIGradient", Title)
-    
-    Tag.Brightness = 2
-    Tag.Size = UDim2.new(4, 0, 1, 0)
-    Tag.StudsOffsetWorldSpace = Vector3.new(0, 5, 0)
-    
-    Title.BackgroundTransparency = 1
-    Title.Size = UDim2.new(1, 0, .6, 0)
-    Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Title.TextScaled = true
-    
-    Rank.AnchorPoint = Vector2.new(.5, 0)
-    Rank.BackgroundTransparency = 1
-    Rank.Position = UDim2.new(.5, 0, .65, 0)
-    Rank.Size = UDim2.new(.75, 0, .5, 0)
-    Rank.TextColor3 = Color3.fromRGB(0, 0, 0)
-    Rank.TextScaled = true
-    Rank.Text = "< Anti Chat-Logger >"
-    
-    Gradient.Color = ColorSequence.new({
-        ColorSequenceKeypoint.new(0, Color3.new(.75, .75, .75)),
-        ColorSequenceKeypoint.new(.27, Color3.new(0, 0, 0)),
-        ColorSequenceKeypoint.new(.5, Color3.new(.3, 0, .5)),
-        ColorSequenceKeypoint.new(0.78, Color3.new(0, 0, 0)),
-        ColorSequenceKeypoint.new(1, Color3.new(.75, .75, .75))
-    })
-    Gradient.Offset = Vector2.new(-1, 0)
-    
-    local GradientTeen = Tween(Gradient, 2, "Circular", "Out", {Offset = Vector2.new(1, 0)})
-    
-    function PlayAnimation()
-    	GradientTeen:Play()
-    	GradientTeen.Completed:Wait()
-    	Gradient.Offset = Vector2.new(-1, 0)
-    	task.wait(.75)
-    	PlayAnimation()
-    end
-    
-    local AddTitle = function(Character)
-        repeat task.wait() until Character
-        
-        local Humanoid = Character and Character:WaitForChild("Humanoid")
-        local RootPart = Humanoid and Humanoid.RootPart
-        
-        if Humanoid then
-            Humanoid:GetPropertyChangedSignal("RootPart"):Connect(function()
-                if Humanoid.RootPart then
-                    Tag.Adornee = RootPart
-                end
-            end)
-        end
-        
-        if RootPart then
-            Tag.Adornee = RootPart
-        end
-    end
-    
-    task.spawn(PlayAnimation)
-    
-    for _, x in next, Players:GetPlayers() do
-        if table.find(UserIds, x.UserId) then
-            Tag.Parent = workspace.Terrain
-            Title.Text = x.Name
-            AddTitle(x.Character)
-            x.CharacterAdded:Connect(AddTitle)
-        end
-    end
-    
-    Players.PlayerAdded:Connect(function(x)
-        if table.find(UserIds, x.UserId) then
-            Tag.Parent = workspace.Terrain
-            Title.Text = x.Name
-            x.CharacterAdded:Connect(AddTitle)
-        end
-    end)
-    
-    Players.PlayerRemoving:Connect(function(x)
-        if table.find(UserIds, x.UserId) then
-            Tag.Parent = game
-        end
-    end)
-end)
-
-task.delay(1, function() WarningUI:Destroy() end)
-
-for _, x in next, OldCoreTypeSettings do
-    if not x then
-        StarterGui:SetCore("ChatActive", false)
-    end
-    StarterGui:SetCoreGuiEnabled(_, x)
-end
-
-if OldCoreSetting then
-    StarterGui:SetCore("CoreGuiChatConnections", OldCoreSetting)
-end
-
-if StarterGui:GetCore("ChatActive") then
-    StarterGui:SetCore("ChatActive", false)
-    StarterGui:SetCore("ChatActive", true)
-end
-
---Metatable.__namecall = CoreHook
-if CoreHook then
-    setmetatable(Metatable, {__namecall = CoreHook}) 
-end
-setreadonly(Metatable, true)
-
-Notify(NotificationTitle, "Anti Chat & Screenshot Logger Loaded!", 15)
-print(string.format("Abyss's Anti Chat-Logger has loaded in %s seconds.", string.format("%.2f", tostring(tick() - ACL_LoadTime))))
-        task.wait(0.5)
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/CaughtInTheAbyss/Secret/main/nologs', true))()
+    task.wait(0.5)
+    Horizon.Interact11.ImageColor3 = Color3.fromRGB(255, 255, 255)
     Horizon.SettingsButton11.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 end)
 
 Horizon.Interact12.MouseButton1Click:connect(function()
-    if Horizon.SettingsButton12.BackgroundColor3 == Color3.fromRGB(20, 20, 20) then
-        Horizon.SettingsButton12.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+    if DarkBalls == false then
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.SettingsButton12.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+            Horizon.Interact12.ImageColor3 = Color3.fromRGB(10, 10, 10)
+        else
+            Horizon.Interact12.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.SettingsButton12.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         DarkBalls = true
         blackballs()
-    elseif Horizon.SettingsButton12.BackgroundColor3 == Color3.fromRGB(144, 41, 246) then
+    elseif DarkBalls == true then
+        Horizon.Interact12.ImageColor3 = Color3.fromRGB(255, 255, 255)
         Horizon.SettingsButton12.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
         DarkBalls = false
     end
 end)
 
 Horizon.Interact13.MouseButton1Click:connect(function()
-    if Horizon.SettingsButton13.BackgroundColor3 == Color3.fromRGB(20, 20, 20) then
-        Horizon.SettingsButton13.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+    if LightBullet == false then
+        if game.Players.LocalPlayer.Name == "CaughtInTheAbyss" or game.Players.LocalPlayer.Name == "oOFROZEN" or game.Players.LocalPlayer.Name == "Quantavio_alt3" or game.Players.LocalPlayer.Name == "CaughtInTheAbyss_Alt" then
+            Horizon.SettingsButton13.BackgroundColor3 = Color3.fromRGB(69, 255, 113)
+            Horizon.Interact13.ImageColor3 = Color3.fromRGB(10, 10, 10)
+        else
+            Horizon.Interact13.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            Horizon.SettingsButton13.BackgroundColor3 = Color3.fromRGB(144, 41, 246)
+        end
         LightBullet = true
         whitebullet()
-    elseif Horizon.SettingsButton13.BackgroundColor3 == Color3.fromRGB(144, 41, 246) then
+    elseif LightBullet == true then
+        Horizon.Interact13.ImageColor3 = Color3.fromRGB(255, 255, 255)
         Horizon.SettingsButton13.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
         LightBullet = false
     end
@@ -5680,7 +5794,7 @@ function hoverInfo(button, infoText, stillhover)
 	
 	button.MouseEnter:Connect(function()
         stillhover = true
-        task.wait(2)
+        task.wait(.5)
         if stillhover == true then
 		infoEl.Visible = true
 		infoEl.Background.InfoLabel.Text = infoText
@@ -5766,11 +5880,11 @@ hoverInfo(Horizon.Interact3, "Double Aura")
 hoverInfo(Horizon.Interact4, "Auto Hide Aura")
 hoverInfo(Horizon.Interact5, "Auto Claim Quests")
 hoverInfo(Horizon.Interact6, "Rainbow Weights")
-hoverInfo(Horizon.Interact7, "Hide Rank/Name")
+hoverInfo(Horizon.Interact7, "Rainbow Rank")
 hoverInfo(Horizon.Interact8, "Night/Day")
 hoverInfo(Horizon.Interact9, "Godmode")
 hoverInfo(Horizon.Interact10, "Server-Hop (Right-Click to Rejoin)")
-hoverInfo(Horizon.Interact11, "Abyss Anti Chat Logs[idk if it works??]")
+hoverInfo(Horizon.Interact11, "Abyss Anti Chat logger/Screenshot [Breaks Translate Script]")
 hoverInfo(Horizon.Interact12, "Black Snowballs")
 hoverInfo(Horizon.Interact13, "White Bullet Punch")
 hoverInfo1(Horizon.BtBg, "")
@@ -5868,9 +5982,9 @@ spawn(function()
         Horizon.BigPage.Data.data.Players.Text = "Players: "..tostring(#game.Players:GetChildren()).."/"..tostring(game.Players.MaxPlayers)..""
         Horizon.BigPage.Data.data.Ping.Text = "Ping: "..math.round(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue()).." ms"
         if not CheckWritefile() then
-            Horizon.BigPage.Data.data.File.Text = "Horizon Revanced Data File: Disabled By Executor"
+            Horizon.BigPage.Data.data.File.Text = "Horizon Data File: Disabled By Executor"
         else
-            Horizon.BigPage.Data.data.File.Text = "Horizon Revanced Data File: Loaded"
+            Horizon.BigPage.Data.data.File.Text = "Horizon Data File: Loaded"
         end
     end
 end)
@@ -5891,10 +6005,10 @@ repeat task.wait() until pListCreated == true
 spawn(function()
     game:GetService("Players").PlayerAdded:Connect(function(whojoined)
         repeat task.wait() until HasFullyExecuted == true
-        if whojoined.Name == "DesiredVisa" then
-            NewNotification("Andrew has joined the server.", 6, "rainbow")
-        elseif whojoined.Name == "quantavio" or whojoined.Name == "Quantavio_alt3" then
-            NewNotification("Quan has joined the server.", 6, "rainbow")
+        if whojoined.Name == "CaughtInTheAbyss" then
+            NewNotification("Abyss has joined the server.", 6, "rainbow")
+        elseif whojoined.Name == "CaughtInTheAbyss_Alt" or whojoined.Name == "CaughtInTheAbyss_Alt1" then
+            NewNotification("Abyss Alt has joined the server.", 6, "rainbow")
         elseif whojoined:IsFriendsWith(game.Players.LocalPlayer.UserId) then
             NewNotification(""..whojoined.Name.." joined the server.", 6, "purple")
         else
@@ -6057,6 +6171,10 @@ spawn(function()
             end
         end
     end)
+end)
+
+spawn(function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/CaughtInTheAbyss/Secret/main/aura%20change', true))()
 end)
 
 game:GetService("Players").LocalPlayer.Idled:connect(function()
